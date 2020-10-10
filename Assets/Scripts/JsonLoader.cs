@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -9,8 +9,14 @@ namespace DefaultNamespace
     public class JsonMonster
     {
         public string Name;
+        public string Type;
         public int HP;
-        public string Skill;
+        public string Skill1;
+        public string Skill2;
+        public string Skill3;
+        public string[] Skills;
+        public bool IsPush;
+        public string ImagePath;
     }
 
     [System.Serializable]
@@ -27,6 +33,7 @@ namespace DefaultNamespace
         public float Cooldown;
         public float PreDelay;
         public float PostDelay;
+        public string ActiveType;
     }
 
     [System.Serializable]
@@ -41,6 +48,7 @@ namespace DefaultNamespace
         public string Name;
         public int Damage;
         public float Cooldown;
+        public float DamageTime;
         public int Durability;
         public int Length;
         public string ActiveSkill;

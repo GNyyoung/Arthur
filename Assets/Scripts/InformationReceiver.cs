@@ -43,11 +43,6 @@ namespace DefaultNamespace
 
         public Dictionary<string, object> InformationDictionary { get; set; }
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
-
         public void SetDic(Dictionary<string, object> dic)
         {
             InformationDictionary = dic;

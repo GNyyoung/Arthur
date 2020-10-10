@@ -58,7 +58,7 @@ namespace DefaultNamespace
 
         private void Awake()
         {
-            UIInstanceProvider.Add(this);
+            InstanceProvider.Add(this);
         }
 
         public void UpdateData()
@@ -96,6 +96,10 @@ namespace DefaultNamespace
                 item.GetComponent<Button>().onClick = buttonClickedEvent;
                 
                 item.GetComponent<SwordItem>().SetData(_swordInfos[itemObjectIndex], itemObjectIndex);
+                var swordImage = item.GetComponent<Image>(); 
+                swordImage.sprite =
+                    Resources.Load<Sprite>($"Sprites/Sword/{_swordInfos[itemObjectIndex].ImageName}");
+                swordImage.preserveAspect = true;
                 _swordItemList.Add(item);
             }
         }

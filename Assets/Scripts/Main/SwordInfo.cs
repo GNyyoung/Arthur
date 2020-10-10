@@ -10,6 +10,7 @@ namespace DefaultNamespace.Main
         // name과 level을 통해 json에서 데이터 가져옴.
         public int Damage { get; private set; }
         public float Cooldown { get; private set; }
+        public float DamageTime { get; private set; }
         public int Durability { get; private set; }
         public int Length { get; private set; }
         public string ActiveSkill { get; private set; }
@@ -26,10 +27,13 @@ namespace DefaultNamespace.Main
             Debug.Log(swordData.Name);
             Damage = swordData.Damage;
             Cooldown = swordData.Cooldown;
+            DamageTime = swordData.DamageTime;
             Durability = swordData.Durability;
             Length = swordData.Length;
             ActiveSkill = swordData.ActiveSkill;
             DrawSkill = swordData.DrawSkill;
+            // 현재는 이미지 이름을 사용하지만, 경로로 바꾸게 되면 Sword.Initialize 수정 필요.
+            ImageName = swordData.ImagePath;
         }
     }
 }

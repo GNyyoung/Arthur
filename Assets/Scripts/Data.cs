@@ -33,6 +33,10 @@ public class Data
         var jsonMonsterData = JsonLoader.LoadJsonFromClassName<JsonMonster>();
         foreach (var data in jsonMonsterData)
         {
+            data.Skills = new[] {data.Skill1, data.Skill2, data.Skill3};
+            Debug.Log(data.Skills[0]);
+            Debug.Log(data.Skills[1]);
+            Debug.Log(data.Skills[2]);
             MonsterData.Add(data.Name, data);
         }
         

@@ -3,12 +3,164 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fcc8f9a-6e1b-4e95-b882-6702a80a77c8" name="Default Changelist" comment="" />
+    <list default="true" id="4fcc8f9a-6e1b-4e95-b882-6702a80a77c8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/CameraMove.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/CameraMove.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/InputReserve.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/InputReserve.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/IInstanceReceiver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/IInstanceReceiver.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterMove.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/DefDirectionChange.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/DefDirectionChange.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MultiHit.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MultiHit.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterApproach.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterApproach.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MoveSpeedController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MoveSpeedController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerIdle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Debug/GameSpeedController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Debug/GameSpeedController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Arthur/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MobSample.psb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MobSample.psb.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage1.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage2.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/Monster.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/Monster.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/Monster.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/Monster.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/MonsterSkill.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/MonsterSkill.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/MonsterSkill.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/MonsterSkill.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/Sword.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/Sword.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/Sword.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Datas/Sword.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Datas/~$Sword.xlsx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Monster.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Monster.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Monster.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Monster.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Battle.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Battle.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CircularLinkedList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CircularLinkedList.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Debug/MonsterDebugUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Debug/MonsterDebugUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InformationReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InformationReceiver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICharacterAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICharacterAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICharacterAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICharacterAction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICombatant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICombatant.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICombatant.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICombatant.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICooldownObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICooldownObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICooldownObserver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICooldownObserver.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICooldownPublisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICooldownPublisher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ICooldownPublisher.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ICooldownPublisher.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/IInstanceProvider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/IInstanceProvider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/IPlayerReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/IPlayerReceiver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/IPlayerReceiver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/IPlayerReceiver.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ISkillPerformer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ISkillPerformer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interface/ISkillPerformer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/ISkillPerformer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/JsonLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/JsonLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/PlayerInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/PlayerInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/SwordInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/SwordInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/InventoryPanelUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/InventoryPanelUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterAction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterIdle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterIdle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterIdle.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterIdle.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterMove.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterMove.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterMove.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterSkillCast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterSkillCast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterSkillCast.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterSkillCast.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Monster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Monster.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Monster.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Monster.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Skill.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/MonsterSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MonsterSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/MonsterSkill.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MonsterSkill.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/TestSkill1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/TestSkill1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/TestSkill1.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/TestSkill1.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MonsterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MonsterSpawner.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterSpawner.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerActiveSkillCast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerActiveSkillCast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerActiveSkillCast.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerActiveSkillCast.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAttack.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAttack.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDefend.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerDefend.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDefend.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerDefend.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDrawSkillCast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerDrawSkillCast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDrawSkillCast.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerDrawSkillCast.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerIdle.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerIdle.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerIdle.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerMove.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerMove.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerSkillCast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerSkillCast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerSkillCast.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerSkillCast.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Player.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/PlayerController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/Cleaning.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/Cleaning.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/Cleaning.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/Cleaning.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/PlayerSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/PlayerSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/PlayerSkill.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/PlayerSkill.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestDrawSkill2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/TestDrawSkill2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestDrawSkill2.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/TestDrawSkill2.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/TestSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestSkill.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Skill/TestSkill.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sword.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Sword.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sword.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/Sword.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIInstanceProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InstanceProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIInstanceProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InstanceProvider.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ActiveSkillDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/ActiveSkillDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ActiveSkillDisplay.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/ActiveSkillDisplay.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/AttackDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/AttackDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/AttackDisplay.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/AttackDisplay.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/DrawSkillDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/DrawSkillDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/DrawSkillDisplay.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/DrawSkillDisplay.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/GameUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/BattleUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/GameUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/BattleUI.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GotoFileConfiguration">
     <file-type-list>
@@ -132,76 +284,92 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/MonsterApproach.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EE47BE73-F7EF-409C-A5E5-CE4B121745B7/59/39d6a909/StackTraceUtility.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterAction.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../Unity/2019.4.9f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Toggle.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/847FBA3D-6B61-4A3B-AFA2-C3B7C7EA4785/98/ecab1c0c/LinkedList`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/Monster/Skill/MultiHit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/JsonLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/MonsterApproach.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EE47BE73-F7EF-409C-A5E5-CE4B121745B7/d7/a4a66fbb/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Main/PlayerInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Unity/2019.4.9f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Selectable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/Monster/Monster.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/049BE2AF-E36F-487E-B06E-F49D51A0BAB6/fd/9eed30da/Animator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/JsonLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/JsonLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Unity/2019.4.9f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Toggle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/Monster/Action/MonsterIdle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/MonsterApproach.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/847FBA3D-6B61-4A3B-AFA2-C3B7C7EA4785/98/ecab1c0c/LinkedList`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EE47BE73-F7EF-409C-A5E5-CE4B121745B7/60/17f653b3/Behaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/847FBA3D-6B61-4A3B-AFA2-C3B7C7EA4785/7e/370f1d8b/LinkedListNode`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/JsonLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/C2135A90-8B80-458B-BECA-1277641502D0/a7/cfe1d621/ParticleSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Monster/Monster.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Monster.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/GitHub/Arthur/Assets/Scripts/Battle/MonsterApproach.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/049BE2AF-E36F-487E-B06E-F49D51A0BAB6/d4/16e5fba8/AnimatorControllerParameter.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerSkillCast.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestDrawSkill2.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Skill/Skill.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Skill/TestSkill.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interface/ICharacterAction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interface/ICooldownObserver.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDrawSkillCast.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/ActiveSkillDisplay.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/DrawSkillDisplay.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/AttackDisplay.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/Skill1.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/Skill2.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterSkill.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerActiveSkillCast.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Skill/PlayerSkill.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerIdle.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterIdle.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interface/ICombatant.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDefend.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interface/IInstanceProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Debug/MonsterDebugUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterAction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/GameUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/TestSkill1.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Skill/MonsterSkill.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterSkillCast.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/Interface/IUIView.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/Interface/IPanelUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/UINavigation.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/MainUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MonsterSpawner.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Monster.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/UIView.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UIInstanceProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/SwordItem.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Skill/Cleaning.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/InventoryPanelUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/Interface/IBattleInfoProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/InformationReceiver.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/SwordInfo.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/JsonLoader.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Sword.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerAttack.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/MainSceneManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/SelectStagePanelUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Main/PlayerInfo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerIdle.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerDefend.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Sword.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Action/PlayerMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Monster/Action/MonsterMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UIInstanceProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Interface/IInstanceReceiver.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/InstanceProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/CameraMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterSpawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/GroundScroll.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/MoveSpeedController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/AnimationSceneUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/AnimationEditor/AnimationSceneUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerSkillCast.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Debug/MonsterDebugUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/InformationReceiver.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DontDestoyOnLoad.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DontDestroyOnLoad.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Debug/GameSpeedController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/DefDirctionChangeSkill.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/DefDirectionChangeSkill.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/DefDirectionChange.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/UserInterface/BattleUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerAttack.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerDefend.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerIdle.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/InputReserve.cs" />
+        <option value="$PROJECT_DIR$/Assets/Resources/Datas/Sword.json" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Sword.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Main/SwordInfo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MonsterSkill.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterSkillCast.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Action/PlayerMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Player/Player.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Main/UserInterface/InventoryPanelUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Main/PlayerInfo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/TestSkill1.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Skill/MultiHit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterIdle.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Action/MonsterMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/MonsterApproach.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Battle/Monster/Monster.cs" />
+        <option value="$PROJECT_DIR$/Assets/Resources/Datas/InfiniteStage1.json" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/JsonLoader.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1h9LHQLvFEpsTEgiNlXO3y2k15Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -217,6 +385,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -271,6 +440,21 @@
       <workItem from="1600890117959" duration="66000" />
       <workItem from="1600890833966" duration="756000" />
       <workItem from="1600933984013" duration="2624000" />
+      <workItem from="1601022895730" duration="14946000" />
+      <workItem from="1601092981961" duration="24794000" />
+      <workItem from="1601464054982" duration="2893000" />
+      <workItem from="1601499406566" duration="322000" />
+      <workItem from="1601533292053" duration="4336000" />
+      <workItem from="1601571064476" duration="6138000" />
+      <workItem from="1601618748125" duration="9752000" />
+      <workItem from="1601663808259" duration="8082000" />
+      <workItem from="1601725359228" duration="12843000" />
+      <workItem from="1601789997693" duration="22376000" />
+      <workItem from="1601974098483" duration="8627000" />
+      <workItem from="1602068586601" duration="560000" />
+      <workItem from="1602169351113" duration="2665000" />
+      <workItem from="1602226819258" duration="17546000" />
+      <workItem from="1602309681545" duration="8363000" />
     </task>
     <servers />
   </component>
@@ -279,24 +463,36 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="277" y="149" width="1427" height="773" key="DiffContextDialog" timestamp="1600338416803">
+    <state x="277" y="149" width="1427" height="773" key="DiffContextDialog" timestamp="1602320524710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="277" y="149" width="1427" height="773" key="DiffContextDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600338416803" />
-    <state x="865" y="373" key="RiderGenerateDialog" timestamp="1600886208352">
+    <state x="277" y="149" width="1427" height="773" key="DiffContextDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602320524710" />
+    <state x="865" y="373" key="RiderGenerateDialog" timestamp="1602264506959">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1171" y="240" key="RiderGenerateDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1600106168437" />
-    <state x="865" y="373" key="RiderGenerateDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600886208352" />
-    <state x="123" y="161" width="1241" height="712" key="SettingsEditor" timestamp="1600891390983">
+    <state x="865" y="373" key="RiderGenerateDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602264506959" />
+    <state x="123" y="161" width="1241" height="712" key="SettingsEditor" timestamp="1601791420710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1797" y="161" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1600079429318" />
-    <state x="123" y="161" width="1241" height="712" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600891390983" />
+    <state x="123" y="161" width="1241" height="712" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1601791420710" />
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1600108297192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -305,26 +501,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600529636782" />
-    <state x="277" y="149" width="1427" height="773" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1600539107821">
+    <state x="277" y="149" width="1427" height="773" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1602320524710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="277" y="149" width="1427" height="773" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600539107821" />
-    <state x="277" y="149" width="1547" height="845" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600541343381">
+    <state x="277" y="149" width="1427" height="773" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602320524710" />
+    <state x="277" y="149" width="1547" height="845" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602320524710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="277" y="149" width="1547" height="845" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600541343381" />
-    <state x="202" y="323" width="1194" height="954" key="dock-window-1" timestamp="1600781312603">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="277" y="149" width="1547" height="845" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602320524710" />
+    <state x="-1074" y="132" width="1236" height="952" key="dock-window-1" timestamp="1601129065716">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="202" y="323" width="1194" height="954" key="dock-window-1/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600781312603" />
-    <state x="543" y="202" width="721" height="594" key="find.popup" timestamp="1600691378334">
+    <state x="-1074" y="132" width="1236" height="952" key="dock-window-1/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1601129065716" />
+    <state x="64" y="137" width="721" height="594" key="find.popup" timestamp="1602319390301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1377" y="260" width="642" height="536" key="find.popup/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1600086898641" />
-    <state x="543" y="202" width="721" height="594" key="find.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600691378334" />
-    <state x="490" y="245" width="672" height="678" key="search.everywhere.popup" timestamp="1600936485174">
+    <state x="64" y="137" width="721" height="594" key="find.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602319390301" />
+    <state x="685" y="238" width="700" height="530" key="recent.locations.popup" timestamp="1602314281798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="490" y="245" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600936485174" />
+    <state x="685" y="238" width="700" height="530" key="recent.locations.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602314281798" />
+    <state x="-1181" y="271" width="672" height="677" key="run.anything.popup" timestamp="1602172686836">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1181" y="271" width="672" height="677" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1602172686836" />
+    <state x="490" y="245" width="672" height="678" key="search.everywhere.popup" timestamp="1602320293641">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1430" y="245" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1602250547850" />
+    <state x="490" y="245" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1602320293641" />
   </component>
 </project>

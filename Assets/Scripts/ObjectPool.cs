@@ -8,7 +8,7 @@ public class ObjectPool : MonoBehaviour
 {
     GameObject prefab;
     GameObject folder;
-    IInstanceProvider instanceProvider;
+    private IInstanceReceiver _instanceReceiver;
     public int PoolSize { get; private set; }
     List<GameObject> createdObjectList = new List<GameObject>();
     int bulletIndex;
@@ -19,12 +19,12 @@ public class ObjectPool : MonoBehaviour
         InitializePool(prefab, poolSize, null);
     }
 
-    public void InitializePool(GameObject prefab, int poolSize, IInstanceProvider instanceProvider)
+    public void InitializePool(GameObject prefab, int poolSize, IInstanceReceiver instanceReceiver)
     {
         this.prefab = prefab;
         folder = new GameObject(prefab.name + "Folder");
         PoolSize = poolSize;
-        this.instanceProvider = instanceProvider;
+        this._instanceReceiver = instanceReceiver;
         CreateObject(PoolSize);
     }
 
@@ -55,10 +55,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             createdObjectList.Add(Instantiate(prefab, folder.transform));
-            if(instanceProvider != null)
-            {
-                instanceProvider.InitializeObject(createdObjectList[createdObjectList.Count - 1]);
-            }
+            _instanceReceiver?.SetInstance(createdObjectList[createdObjectList.Count - 1]);
             createdObjectList[createdObjectList.Count - 1].SetActive(false);
         }
     }

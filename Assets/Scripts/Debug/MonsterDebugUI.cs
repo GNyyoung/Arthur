@@ -11,6 +11,7 @@ namespace DefaultNamespace
     public class MonsterDebugUI : MonoBehaviour
     {
         public Text DefenceDirectionText;
+        public Text SkillDirectionText;
         public Slider AttacktimingSlider;
     }
 }

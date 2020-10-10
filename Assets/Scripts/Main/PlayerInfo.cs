@@ -24,7 +24,7 @@ public class PlayerInfo : MonoBehaviour, IBattleInfoProvider
 
     void Start()
     {
-        UIInstanceProvider.SendInstance(this);
+        InstanceProvider.SendInstance(this);
         
         // 테스트 코드.
         var testSword1 = new SwordInfo();
@@ -50,10 +50,6 @@ public class PlayerInfo : MonoBehaviour, IBattleInfoProvider
         var testSword6 = new SwordInfo();
         testSword6.Initialize("Staff", 1);
         ownedSwordList.Add(testSword6);
-        
-        var testSword7 = new SwordInfo();
-        testSword7.Initialize("Staff", 2);
-        ownedSwordList.Add(testSword7);
         // 코드 끝.
     }
 
