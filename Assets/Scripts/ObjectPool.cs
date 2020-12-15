@@ -13,17 +13,21 @@ public class ObjectPool : MonoBehaviour
     List<GameObject> createdObjectList = new List<GameObject>();
     int bulletIndex;
 
-    // 풀링할 오브젝트를 받아와 생성함.
-    public void InitializePool(GameObject prefab, int poolSize)
+    /// <summary>
+    /// 풀링할 오브젝트를 받아와서 생성함.
+    /// </summary>
+    /// <param name="prefab">풀링할 오브젝트</param>
+    /// <param name="poolNum">생성할 오브젝트 수</param>
+    public void InitializePool(GameObject prefab, GameObject folder, int poolNum)
     {
-        InitializePool(prefab, poolSize, null);
+        InitializePool(prefab, folder, poolNum, null);
     }
 
-    public void InitializePool(GameObject prefab, int poolSize, IInstanceReceiver instanceReceiver)
+    public void InitializePool(GameObject prefab, GameObject folder, int poolNum, IInstanceReceiver instanceReceiver)
     {
         this.prefab = prefab;
-        folder = new GameObject(prefab.name + "Folder");
-        PoolSize = poolSize;
+        this.folder = folder;
+        PoolSize = poolNum;
         this._instanceReceiver = instanceReceiver;
         CreateObject(PoolSize);
     }
@@ -45,6 +49,29 @@ public class ObjectPool : MonoBehaviour
         }
 
         bulletIndex = (bulletIndex + 1) % createdObjectList.Count;
+
+        return spawnedObject;
+    }
+
+    public GameObject GetFrontObject()
+    {
+        GameObject spawnedObject = null;
+
+        foreach (var createdObj in createdObjectList)
+        {
+            if (createdObj.activeSelf == false)
+            {
+                spawnedObject = createdObj;
+                break;
+            }
+        }
+
+        if (spawnedObject == null)
+        {
+            int createNum = 5;
+            CreateObject(createNum);
+            spawnedObject = createdObjectList[createdObjectList.Count - createNum];
+        }
 
         return spawnedObject;
     }

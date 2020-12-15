@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -22,10 +24,14 @@ public class Data
     }
 
     public bool isLoaded { get; private set; } = false;
-    public Dictionary<string, JsonMonster> MonsterData { get; private set; } = new Dictionary<string, JsonMonster>();
-    public Dictionary<string, JsonStage[]> StageData { get; private set; } = new Dictionary<string, JsonStage[]>();
-    public Dictionary<string, JsonMonsterSkill> MonsterSkillData { get; private set; } = new Dictionary<string, JsonMonsterSkill>();
-    public Dictionary<string, JsonSword> SwordData { get; private set; } = new Dictionary<string, JsonSword>();
+    private readonly Dictionary<string, JsonMonster> _monsterJsonDataSet = new Dictionary<string, JsonMonster>();
+    private readonly Dictionary<string, JsonStage[]> _stageSpawnJsonDataSet = new Dictionary<string, JsonStage[]>();
+    private readonly Dictionary<string, JsonStageInfo> _stageInfoJsonDataSet = new Dictionary<string, JsonStageInfo>();
+    private readonly Dictionary<string, JsonMonsterSkill> _monsterSkillJsonDataSet = new Dictionary<string, JsonMonsterSkill>();
+    private readonly Dictionary<string, JsonSword> _swordJsonDataSet = new Dictionary<string, JsonSword>();
+    private readonly Dictionary<string, JsonSwordSkill> _swordSkillJsonDataSet = new Dictionary<string, JsonSwordSkill>();
+    private readonly Dictionary<int, int> _levelUpCostDataSet = new Dictionary<int, int>();
+    private readonly Dictionary<string, string> textJsonDataSet = new Dictionary<string, string>();
 
     public void LoadJsonData()
     {
@@ -34,36 +40,58 @@ public class Data
         foreach (var data in jsonMonsterData)
         {
             data.Skills = new[] {data.Skill1, data.Skill2, data.Skill3};
-            Debug.Log(data.Skills[0]);
-            Debug.Log(data.Skills[1]);
-            Debug.Log(data.Skills[2]);
-            MonsterData.Add(data.Name, data);
+            _monsterJsonDataSet.Add(data.Name, data);
         }
         
         //몬스터 스킬 데이터 추가
         var jsonMonsterSkillData = JsonLoader.LoadJsonFromClassName<JsonMonsterSkill>();
         foreach (var data in jsonMonsterSkillData)
         {
-            MonsterSkillData.Add(data.SkillName, data);
+            _monsterSkillJsonDataSet.Add(data.Name, data);
         }
 
-
         // 스테이지 데이터 추가.
-        var jsonStageNameData = JsonLoader.LoadJsonFromClassName<JsonStageName>();
-        foreach (var stageName in jsonStageNameData)
+        var jsonStageInfoData = JsonLoader.LoadJsonFromClassName<JsonStageInfo>();
+        foreach (var stageInfo in jsonStageInfoData)
         {
-            var jsonStageData = JsonLoader.LoadJsonFromClassName<JsonStage>(stageName.Name);
-            Debug.Log(stageName.Name);
-            StageData.Add(stageName.Name, jsonStageData);
+            var jsonStageData = JsonLoader.LoadJsonFromClassName<JsonStage>(stageInfo.Name);
+            Debug.Log(stageInfo.Name);
+            _stageSpawnJsonDataSet.Add(stageInfo.Name, jsonStageData);
+            
+            // 스테이지 정보 추가
+            _stageInfoJsonDataSet.Add(stageInfo.Name, stageInfo);
         }
         
         // 검 데이터 추가
         var jsonSwordData = JsonLoader.LoadJsonFromClassName<JsonSword>();
-        Debug.Log(jsonSwordData.Length);
+        var builder = new StringBuilder();
+        builder.Append($"추가된 검 데이터 : {jsonSwordData.Length}개\n");
         foreach (var sword in jsonSwordData)
         {
-            Debug.Log(sword.Name);
-            SwordData.Add(sword.Name, sword);
+            builder.Append($"{sword.Name}\n");
+            _swordJsonDataSet.Add(sword.Name, sword);
+        }
+        Debug.Log(builder);
+        
+        // 검 스킬 데이터 추가
+        var jsonSwordSkillData = JsonLoader.LoadJsonFromClassName<JsonSwordSkill>();
+        foreach (var swordSkill in jsonSwordSkillData)
+        {
+            _swordSkillJsonDataSet.Add(swordSkill.Name, swordSkill);
+        }
+        
+        // 레벨업 비용 데이터 추가
+        var jsonLevelUpCostData = JsonLoader.LoadJsonFromClassName<JsonLevelUpCost>();
+        foreach (var levelUpCost in jsonLevelUpCostData)
+        {
+            _levelUpCostDataSet.Add(levelUpCost.Level, levelUpCost.Cost);
+        }
+        
+        // 텍스트 추가
+        var jsonTextData = JsonLoader.LoadJsonFromClassName<JsonText>();
+        foreach (var jsonText in jsonTextData)
+        {
+            textJsonDataSet.Add(jsonText.ID, jsonText.Text);
         }
 
         isLoaded = true;
@@ -71,7 +99,7 @@ public class Data
 
     public JsonMonster GetMonster(string monsterName)
     {
-        if (MonsterData.TryGetValue(monsterName, out var value) == true)
+        if (_monsterJsonDataSet.TryGetValue(monsterName, out var value) == true)
         {
             return value;
         }
@@ -81,9 +109,9 @@ public class Data
         }
     }
 
-    public JsonStage[] GetStage(string stageName)
+    public JsonStage[] GetStageSpawn(string stageName)
     {
-        if (StageData.TryGetValue(stageName, out var value))
+        if (_stageSpawnJsonDataSet.TryGetValue(stageName, out var value))
         {
             return value;
         }
@@ -95,7 +123,7 @@ public class Data
 
     public JsonMonsterSkill GetMonsterSkill(string skillName)
     {
-        if (MonsterSkillData.TryGetValue(skillName, out var value) == true)
+        if (_monsterSkillJsonDataSet.TryGetValue(skillName, out var value) == true)
         {
             return value;
         }
@@ -107,7 +135,7 @@ public class Data
 
     public JsonSword GetSword(string swordName)
     {
-        if (SwordData.TryGetValue(swordName, out var value) == true)
+        if (_swordJsonDataSet.TryGetValue(swordName, out var value) == true)
         {
             return value;
         }
@@ -115,5 +143,59 @@ public class Data
         {
             return null;
         }
+    }
+
+    public JsonSwordSkill GetSwordSkill(string swordSkillName)
+    {
+        if (_swordSkillJsonDataSet.TryGetValue(swordSkillName, out var value) == true)
+        {
+            return value;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public int GetLevelUpCost(int level)
+    {
+        return _levelUpCostDataSet[level];
+    }
+
+    public JsonStageInfo GetStageInfo(string stageName)
+    {
+        if (_stageInfoJsonDataSet.TryGetValue(stageName, out var stageInfo) == true)
+        {
+            return stageInfo;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public string GetText(string ID)
+    {
+        if (textJsonDataSet.TryGetValue(ID, out var text) == true)
+        {
+            return text;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // 스테이지 제작용으로 만든 메소드
+    public void RemoveAllJson()
+    {
+        isLoaded = false;
+        _monsterJsonDataSet.Clear();
+        _stageSpawnJsonDataSet.Clear();
+        _stageInfoJsonDataSet.Clear();
+        _monsterSkillJsonDataSet.Clear();
+        _swordJsonDataSet.Clear();
+        _swordSkillJsonDataSet.Clear();
+        _levelUpCostDataSet.Clear();
     }
 }

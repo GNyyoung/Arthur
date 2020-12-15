@@ -5,21 +5,54 @@
     <e p="C:\Users\young\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Arthur.648195071.00" t="ExcludeRecursive" />
     <e p="F:\GitHub\Arthur" t="IncludeRecursive">
       <e p="Arthur.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Android Native Audio" t="Include">
+          <e p="Changelog.txt" t="Include" />
+          <e p="Credits.txt" t="Include" />
+          <e p="Examples" t="Include">
+            <e p="ANA" t="Include">
+              <e p="ANAExample.cs" t="Include" />
+            </e>
+            <e p="ANA Music" t="Include">
+              <e p="ANAMusicExample.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="ANAMusic.cs" t="Include" />
+            <e p="ANAMusicBackgroundPause.cs" t="Include" />
+            <e p="AndroidMediaPlayer.cs" t="Include" />
+            <e p="AndroidNativeAudio.cs" t="Include" />
+            <e p="OnCompletionListener.cs" t="Include" />
+            <e p="OnLoadCompleteListener.cs" t="Include" />
+            <e p="OnPreparedListener.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Editor" t="Include">
+          <e p="LogCatWindow.cs" t="Include" />
+          <e p="StageEdit" t="Include">
+            <e p="StageEditorButton.cs" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="AnimationEditor" t="Include">
             <e p="AnimationSceneUI.cs" t="Include" />
           </e>
           <e p="Battle" t="Include">
+            <e p="BattleSceneManager.cs" t="Include" />
             <e p="CameraMove.cs" t="Include" />
+            <e p="CharacterCanvas.cs" t="Include" />
+            <e p="CharacterEffect.cs" t="Include" />
+            <e p="FireBallController.cs" t="Include" />
+            <e p="GameManager.cs" t="Include" />
             <e p="GroundScroll.cs" t="Include" />
             <e p="InputReserve.cs" t="Include" />
             <e p="Interface" t="Include">
               <e p="ICharacterAction.cs" t="Include" />
-              <e p="ICombatant.cs" t="Include" />
               <e p="ICooldownObserver.cs" t="Include" />
               <e p="ICooldownPublisher.cs" t="Include" />
+              <e p="IEffectReceiver.cs" t="Include" />
               <e p="IInstanceReceiver.cs" t="Include" />
               <e p="IPlayerReceiver.cs" t="Include" />
               <e p="ISkillPerformer.cs" t="Include" />
@@ -29,19 +62,36 @@
                 <e p="MonsterAction.cs" t="Include" />
                 <e p="MonsterIdle.cs" t="Include" />
                 <e p="MonsterMove.cs" t="Include" />
+                <e p="MonsterNonAction.cs" t="Include" />
                 <e p="MonsterSkillCast.cs" t="Include" />
               </e>
+              <e p="CharacterModel.cs" t="Include" />
+              <e p="DefenceVariety.cs" t="Include" />
               <e p="Monster.cs" t="Include" />
+              <e p="MonsterData.cs" t="Include" />
+              <e p="MonsterSound.cs" t="Include" />
               <e p="Skill" t="Include">
+                <e p="BackJumpHeal.cs" t="Include" />
+                <e p="Dash.cs" t="Include" />
                 <e p="DefDirectionChange.cs" t="Include" />
+                <e p="FastStab.cs" t="Include" />
                 <e p="MonsterSkill.cs" t="Include" />
+                <e p="MonsterSkillSample.cs" t="Include" />
                 <e p="MultiHit.cs" t="Include" />
-                <e p="TestSkill1.cs" t="Include" />
+                <e p="RandomDirectionAttack.cs" t="Include" />
+                <e p="ShoulderCharge.cs" t="Include" />
+                <e p="SkillCooldownCondition.cs" t="Include" />
+                <e p="SnakeSlow.cs" t="Include" />
+                <e p="SnakeStab.cs" t="Include" />
+                <e p="SnakeStrongTwoAttack.cs" t="Include" />
+                <e p="StunAttack.cs" t="Include" />
+                <e p="UpperAxe.cs" t="Include" />
               </e>
             </e>
             <e p="MonsterApproach.cs" t="Include" />
             <e p="MonsterSpawner.cs" t="Include" />
             <e p="MoveSpeedController.cs" t="Include" />
+            <e p="ObjectShake.cs" t="Include" />
             <e p="Player" t="Include">
               <e p="Action" t="Include">
                 <e p="PlayerAction.cs" t="Include" />
@@ -51,13 +101,30 @@
                 <e p="PlayerDrawSkillCast.cs" t="Include" />
                 <e p="PlayerIdle.cs" t="Include" />
                 <e p="PlayerMove.cs" t="Include" />
+                <e p="PlayerNonAction.cs" t="Include" />
                 <e p="PlayerSkillCast.cs" t="Include" />
               </e>
               <e p="Player.cs" t="Include" />
-              <e p="PlayerController.cs" t="Include" />
+              <e p="PlayerCollideDetector.cs" t="Include" />
+              <e p="PlayerReward.cs" t="Include" />
+              <e p="PlayerSound.cs" t="Include" />
               <e p="Skill" t="Include">
+                <e p="BackJumpStab.cs" t="Include" />
+                <e p="BatDrawAttack.cs" t="Include" />
+                <e p="BatKnockback.cs" t="Include" />
                 <e p="Cleaning.cs" t="Include" />
+                <e p="DashStab.cs" t="Include" />
+                <e p="FastCounterAttack.cs" t="Include" />
+                <e p="FastDamageUp.cs" t="Include" />
+                <e p="FastDraw.cs" t="Include" />
+                <e p="FireBall.cs" t="Include" />
+                <e p="Immortality.cs" t="Include" />
+                <e p="NormalDraw.cs" t="Include" />
                 <e p="PlayerSkill.cs" t="Include" />
+                <e p="SkillSample.cs" t="Include" />
+                <e p="Smash.cs" t="Include" />
+                <e p="StrongAttack.cs" t="Include" />
+                <e p="Stun.cs" t="Include" />
                 <e p="TestDrawSkill2.cs" t="Include" />
                 <e p="TestSkill.cs" t="Include" />
               </e>
@@ -68,38 +135,57 @@
               <e p="AttackDisplay.cs" t="Include" />
               <e p="BattleUI.cs" t="Include" />
               <e p="DrawSkillDisplay.cs" t="Include" />
+              <e p="DurabilityRemainDisplay.cs" t="Include" />
+              <e p="OptionPanelUI.cs" t="Include" />
             </e>
           </e>
-          <e p="BattleManager.cs" t="Include" />
+          <e p="CanvasSetting.cs" t="Include" />
           <e p="Data.cs" t="Include" />
           <e p="Debug" t="Include">
+            <e p="ControlDebug.cs" t="Include" />
             <e p="GameSpeedController.cs" t="Include" />
             <e p="MonsterDebugUI.cs" t="Include" />
           </e>
           <e p="DontDestroyOnLoad.cs" t="Include" />
-          <e p="GameManager.cs" t="Include" />
+          <e p="GameResolution.cs" t="Include" />
+          <e p="GUIBoundary.cs" t="Include" />
           <e p="InformationReceiver.cs" t="Include" />
           <e p="InstanceProvider.cs" t="Include" />
           <e p="JsonLoader.cs" t="Include" />
           <e p="Main" t="Include">
             <e p="Interface" t="Include">
-              <e p="IBattleInfoProvider.cs" t="Include" />
+              <e p="IInfoProvider.cs" t="Include" />
               <e p="IPanelUI.cs" t="Include" />
               <e p="IUIView.cs" t="Include" />
             </e>
             <e p="MainSceneManager.cs" t="Include" />
+            <e p="MainSound.cs" t="Include" />
+            <e p="MoneyManager.cs" t="Include" />
             <e p="PlayerInfo.cs" t="Include" />
+            <e p="StageLoadInfo.cs" t="Include" />
             <e p="SwordInfo.cs" t="Include" />
             <e p="UserInterface" t="Include">
+              <e p="DetailInfoPanelUI.cs" t="Include" />
               <e p="InventoryPanelUI.cs" t="Include" />
               <e p="MainUI.cs" t="Include" />
+              <e p="RewardPanelUI.cs" t="Include" />
               <e p="SelectStagePanelUI.cs" t="Include" />
+              <e p="StageMessage.cs" t="Include" />
               <e p="SwordItem.cs" t="Include" />
               <e p="UINavigation.cs" t="Include" />
               <e p="UIView.cs" t="Include" />
             </e>
           </e>
+          <e p="MobileControl.cs" t="Include" />
           <e p="ObjectPool.cs" t="Include" />
+          <e p="singSample.cs" t="Include" />
+          <e p="StageCreator" t="Include">
+            <e p="MonsterCreateInfo.cs" t="Include" />
+            <e p="StageCreateManager.cs" t="Include" />
+            <e p="StageEditor.cs" t="Include" />
+            <e p="WeaponRangeGizmo.cs" t="Include" />
+          </e>
+          <e p="TextGetter.cs" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />

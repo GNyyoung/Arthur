@@ -11,10 +11,12 @@
       <Path>Library/PackageCache/com.unity.burst@1.3.7</Path>
       <Path>Library/PackageCache/com.unity.collab-proxy@1.2.16</Path>
       <Path>Library/PackageCache/com.unity.collections@0.9.0-preview.6</Path>
+      <Path>Library/PackageCache/com.unity.editorcoroutines@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.ext.nunit@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.ide.rider@1.1.4</Path>
       <Path>Library/PackageCache/com.unity.ide.vscode@1.2.1</Path>
       <Path>Library/PackageCache/com.unity.mathematics@1.2.1</Path>
+      <Path>Library/PackageCache/com.unity.memoryprofiler@0.2.6-preview.1</Path>
       <Path>Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0-preview</Path>
       <Path>Library/PackageCache/com.unity.scriptablebuildpipeline@1.7.3</Path>
       <Path>Library/PackageCache/com.unity.test-framework.performance@2.0.8-preview</Path>
@@ -31,6 +33,7 @@
       <Path>Excel2Json</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>MemoryCaptures</Path>
       <Path>Resource</Path>
       <Path>Temp</Path>
       <Path>UIElementsSchema</Path>

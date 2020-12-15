@@ -5,8 +5,7 @@ namespace DefaultNamespace
 {
     public class GroundScroll : MonoBehaviour
     {
-        [SerializeField] 
-        private GameObject _camera;
+        [SerializeField] private GameObject _camera = null;
 
         private int scrollCount;
         private float groundSize;
@@ -18,7 +17,7 @@ namespace DefaultNamespace
             var ground = gameObject.transform.GetChild(0);
             standardCameraPixel = Mathf.CeilToInt(540 / _camera.GetComponent<Camera>().orthographicSize);
             groundSize = ground.localScale.x * 
-                         ground.GetComponent<SpriteRenderer>().sprite.rect.width * 2 /
+                         ground.GetComponent<SpriteRenderer>().sprite.rect.width /
                          standardCameraPixel;
             Debug.Log(groundSize);
             StartCoroutine(ScrollGround());

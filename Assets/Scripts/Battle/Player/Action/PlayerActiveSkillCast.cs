@@ -17,7 +17,7 @@ namespace DefaultNamespace
 
         public override PlayerStatus GetStatus()
         {
-            return PlayerStatus.SkillActive;
+            return PlayerStatus.ActiveSkill;
         }
 
         public override void StartAction()
@@ -39,7 +39,10 @@ namespace DefaultNamespace
         public void UpdateSkillCooldown()
         {
             // 현재 무기 쿨타임 보여주기
-            cooldownDisplay.DisplayCooldown(Player.CurrentSword);
+            if (Player.CurrentSword.ActiveSkill != null)
+            {
+                cooldownDisplay.DisplayCooldown(Player.CurrentSword);   
+            }
         }
     }
 }

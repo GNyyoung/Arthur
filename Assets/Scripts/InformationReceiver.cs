@@ -41,11 +41,21 @@ namespace DefaultNamespace
             }
         }
 
-        public Dictionary<string, object> InformationDictionary { get; set; }
+        public Dictionary<string, object> InformationDictionary { get; set; } = new Dictionary<string, object>();
 
         public void SetDic(Dictionary<string, object> dic)
         {
-            InformationDictionary = dic;
+            foreach (var infoPair in dic)
+            {
+                if (InformationDictionary.ContainsKey(infoPair.Key))
+                {
+                    InformationDictionary[infoPair.Key] = infoPair.Value;
+                }
+                else
+                {
+                    InformationDictionary.Add(infoPair.Key, infoPair.Value);
+                }
+            }
             Debug.Log("데이터 받음");
         }
     }

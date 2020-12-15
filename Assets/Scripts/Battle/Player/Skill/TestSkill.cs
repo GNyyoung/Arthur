@@ -6,7 +6,7 @@ namespace DefaultNamespace
 {
     public class TestSkill : PlayerSkill
     {
-        private void Awake()
+        protected override void SetSkillAnimation()
         {
             Cooldown = 8f;
         }
@@ -19,7 +19,12 @@ namespace DefaultNamespace
                 SkillCoroutine = StartCoroutine(SkillName());
             }
         }
-        
+
+        public override IEnumerator Skill()
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerator SkillName()
         {
             var waitForFixedUpdate = new WaitForFixedUpdate();
@@ -28,7 +33,7 @@ namespace DefaultNamespace
             
             Debug.Log("스킬 사용");
             
-            SkillCastAction.EndSkill();
+            skillCastAction.EndSkill();
         }
     }
 }

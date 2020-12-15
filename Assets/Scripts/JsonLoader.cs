@@ -11,12 +11,15 @@ namespace DefaultNamespace
         public string Name;
         public string Type;
         public int HP;
+        public float SwordDamageRate;
         public string Skill1;
         public string Skill2;
         public string Skill3;
         public string[] Skills;
         public bool IsPush;
+        public string DefenceType;
         public string ImagePath;
+        public string ToolPath;
     }
 
     [System.Serializable]
@@ -24,12 +27,14 @@ namespace DefaultNamespace
     {
         public string MonsterName;
         public float SpawnTime;
+        public bool IsStopSpawn = false;
     }
 
     [System.Serializable]
     public class JsonMonsterSkill
     {
-        public string SkillName;
+        public string Name;
+        public float FirstCooldown;
         public float Cooldown;
         public float PreDelay;
         public float PostDelay;
@@ -37,23 +42,57 @@ namespace DefaultNamespace
     }
 
     [System.Serializable]
-    public class JsonStageName
+    public class JsonStageInfo
     {
         public string Name;
+        public float DamageMultiple;
+        public float HPMultiple;
+        public float CooldownMultiple;
     }
 
     [System.Serializable]
     public class JsonSword
     {
         public string Name;
+        public string Desc;
         public int Damage;
-        public float Cooldown;
+        public float AttackCooldown;
         public float DamageTime;
         public int Durability;
         public int Length;
         public string ActiveSkill;
         public string DrawSkill;
         public string ImagePath;
+    }
+
+    [System.Serializable]
+    public class JsonSwordSkill
+    {
+        public string Name;
+        public string Type;
+        public float AnimationTime;
+        public int DurabilityCost;
+        public float Cooldown;
+        public float BaseBonus;
+        public float LevelBonus;
+        public int RangeBonus;
+        public int RangeLevelBonus;
+        public float Duration;
+        public float DurationLevelBonus;
+    }
+
+    [System.Serializable]
+    public class JsonLevelUpCost
+    {
+        public int Level;
+        public int Cost;
+    }
+
+    [System.Serializable]
+    public class JsonText
+    {
+        public string ID;
+        public string Text;
     }
 
     public class JsonWrapper<T>
@@ -94,7 +133,7 @@ namespace DefaultNamespace
             }
             catch
             {
-                Debug.LogError($"존재하지 않는 json 파일명 : {fileName}\n{jsonPath}");
+                Debug.LogWarning($"존재하지 않는 json 파일명 : {fileName}\n{jsonPath}");
             }
             
             return jsonClass;

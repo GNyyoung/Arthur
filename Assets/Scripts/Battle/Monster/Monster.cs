@@ -1,5 +1,6 @@
 ﻿﻿﻿﻿using System;
-using System.Collections.Generic;
+   using System.Collections;
+   using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,89 +8,109 @@ namespace DefaultNamespace
 {
     public enum MonsterStatus
     {
+        None,
         Skill,
         Move,
         Idle
     }
+
+    public enum MonsterType
+    {
+        Normal,
+        Passage,
+        Boss
+    }
     
-    public class Monster : MonoBehaviour, ICombatant
+    public delegate AttackDirection ChangeDefendDirection(Monster monster);
+    
+    public class Monster : MonoBehaviour, IEffectReceiver
     {
         private PlayerSkill _currentSkill = null;
         private readonly Dictionary<MonsterStatus, IMonsterAction> _actions = new Dictionary<MonsterStatus, IMonsterAction>();
-        private float _maxHP;
-        private float _currentHP;
-        private GameObject _monsterSprite;
-        
-        public AttackDirection DefenceDirection { get; private set; }
+        private string monsterName;
+        private GameObject monsterSprite;
+        private PlayerReward playerReward;
+        [SerializeField] 
+        private CharacterEffect characterEffect;
+
+        private ObjectShake objectShake;
+
+        public float MaxHP { get; set; }
+        public float CurrentHP { get; set; }
+        public bool IsCheckCollision { get; set; }
+        public ChangeDefendDirection ChangeDefendDirection { get; private set; }
+        public AttackDirection DefenceDirection { get; set; }
         public MonsterSkill[] Skills { get; private set; }
-        public ICombatant Player { get; private set; }
+        public Player Player { get; private set; }
         public List<MonsterSkill> SkillStandbyList { get; private set; } = new List<MonsterSkill>();
         public IMonsterAction CurrentAction { get; set; }
         public bool IsPush { get; private set; }
-        public string MonsterType { get; private set; }
+        public MonsterType MonsterType { get; private set; }
+        public MonsterStat MonsterStat { get; } = new MonsterStat();
+        public Animator Animator { get; private set; }
+        public float DamageMultiple { get; private set; }
+        public float HPMultiple { get; private set; }
+        public float CooldownMultiple { get; private set; }
+        public SpriteRenderer ToolRenderer { get; private set; }
+        public float SwordDamageRate { get; private set; }
+        public MonsterSound SoundSet { get; private set; }
+        public CharacterEffect CharacterEffect
+        {
+            get => characterEffect;
+            private set => characterEffect = value;
+        }
         
-        
-        
-
-        #region Debug
-        
-        private MonsterStatus currentStatus;
-
-        #endregion
+        // 몬스터가 다른 오브젝트와 충돌한 상태인지.
+        public bool isCollided = false;
+        public CharacterCanvas characterCanvas;
 
         private void Awake()
         {
             var monsterActions = GetComponents<IMonsterAction>();
+            SoundSet = GetComponent<MonsterSound>();
             foreach (var action in monsterActions)
             {
                 _actions.Add(action.GetStatus(), action);
                 (action as MonsterAction).enabled = false;
             }
+
+            CharacterEffect.effectReceiver = this;
         }
         
-        public void InitializeStat(JsonMonster monsterData, ICombatant player)
+        private void FixedUpdate()
         {
-            this.Player = player;
-            _maxHP = monsterData.HP;
-            _currentHP = _maxHP;
-            IsPush = monsterData.IsPush;
-            MonsterType = monsterData.Type;
-
-            _monsterSprite = Resources.Load<GameObject>(monsterData.ImagePath);
-            Instantiate(_monsterSprite, this.transform).name = _monsterSprite.name;
-
-            GetComponent<BoxCollider2D>().enabled = true;
-            
-            // 몬스터 스킬 추가
-            foreach (var skill in monsterData.Skills)
+            if (IsSkillActiveCondition() == true)
             {
-                if (skill == null)
+                foreach (var standbySkill in SkillStandbyList)
                 {
-                    break;
-                }
-                else
-                {
-                    var skillClassType = Type.GetType($"DefaultNamespace.{skill}");
-                    var newSkill = this.gameObject.AddComponent(skillClassType) as MonsterSkill;
-                    var skillData = Data.Instance.GetMonsterSkill(skill);
-                    if (skillData != null)
+                    if (IsAbleSkillUsage(standbySkill) == true)
                     {
-                        Debug.Log(skillData.Cooldown);
-                        newSkill.Cooldown = skillData.Cooldown;
-                        newSkill.PreDelay = skillData.PreDelay;
-                        newSkill.PostDelay = skillData.PostDelay;
-                        newSkill.ActiveType =
-                            (MonsterSkill.SkillActiveType) Enum.Parse(typeof(MonsterSkill.SkillActiveType), skillData.ActiveType);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"몬스터 스킬이 제대로 할당되지 않았습니다. : {skill}");
+                        (_actions[MonsterStatus.Skill] as MonsterSkillCast).Skill = standbySkill;
+                        SkillStandbyList.Remove(standbySkill);
+                        Debug.Log($"{gameObject.GetInstanceID()}");
+                        ChangeStatus(_actions[MonsterStatus.Skill]);
+                        break;
                     }
                 }
             }
-            transform.position = new Vector3(Camera.main.transform.position.x + 9, transform.position.y);
+        }
+        
+        /// <summary>
+        /// 몬스터의 모든 정보를 초기화함.
+        /// </summary>
+        /// <param name="monsterJsonData">초기화에 사용할 데이터</param>
+        /// <param name="player"></param>
+        public void Initialize(JsonMonster monsterJsonData, Player player, PlayerReward playerReward, JsonStageInfo stageInfo)
+        {
+            SetStat(monsterJsonData, player, stageInfo);
+            this.playerReward = playerReward;
 
-            ChangeDefenceDirection();
+            SetImage(monsterJsonData);
+            GetComponent<BoxCollider2D>().enabled = true;
+            SetSkill(monsterJsonData);
+            transform.position = new Vector3(Camera.main.transform.position.x + 7, transform.position.y);
+            InitializeDefence(monsterJsonData);
+            characterCanvas.Initialize(this.gameObject, monsterSprite);
             
             // 스킬 쿨다운 시작
             Skills = GetComponents<MonsterSkill>();
@@ -101,53 +122,154 @@ namespace DefaultNamespace
             
             // 액션 시작
             CurrentAction = _actions[MonsterStatus.Move];
-            currentStatus = CurrentAction.GetStatus();
             CurrentAction.StartAction();
         }
 
-        private void FixedUpdate()
+        public void SetStat(JsonMonster monsterJsonData, Player player, JsonStageInfo stageInfo)
         {
-            if (IsSkillActiveCondition() == true)
+            DamageMultiple = stageInfo.DamageMultiple;
+            HPMultiple = stageInfo.HPMultiple;
+            CooldownMultiple = stageInfo.CooldownMultiple;
+            
+            monsterName = monsterJsonData.Name;
+            this.Player = player;
+            MaxHP = monsterJsonData.HP * HPMultiple;
+            CurrentHP = MaxHP;
+            IsPush = monsterJsonData.IsPush;
+            SwordDamageRate = monsterJsonData.SwordDamageRate;
+            MonsterType = (MonsterType)Enum.Parse(typeof(MonsterType), monsterJsonData.Type);
+            if (MonsterType == MonsterType.Passage)
             {
-                foreach (var standbySkill in SkillStandbyList)
-                {
-                    if ((standbySkill.ActiveType == MonsterSkill.SkillActiveType.ShortDist && 
-                         MonsterApproach.Instance.IsFirstApproached(this.gameObject) == true) ||
-                        standbySkill.ActiveType == MonsterSkill.SkillActiveType.LongDist)
-                    {
-                        (_actions[MonsterStatus.Skill] as MonsterSkillCast).Skill = standbySkill;
-                        SkillStandbyList.Remove(standbySkill);
-                        Debug.Log($"{gameObject.GetInstanceID()}");
-                        ChangeStatus(_actions[MonsterStatus.Skill]);
-                        break;
-                    }
-                }
+                IsCheckCollision = false;
             }
+            else
+            {
+                IsCheckCollision = true;
+            }
+            
+            MonsterStat.Name = monsterName;
+            MonsterStat.MaxHP = MaxHP;
+            MonsterStat.CurrentHP = CurrentHP;
         }
 
         // 방어하지 않은 부분을 공격하면 return true.
-        public bool TakeDamage(ICombatant player, int damage, AttackDirection direction)
+        public bool TakeDamage(Player player, int damage, AttackDirection direction)
         {
+            MonsterStat.DamagedDirection = direction;
+            Debug.Log(DefenceDirection);
             if (direction == DefenceDirection)
             {
                 Debug.Log($"{gameObject.name}({gameObject.GetInstanceID()}) 방어");
-                _currentHP -= damage / 2.0f;
+                CurrentHP -= damage / 2.0f;
+                if (CurrentHP <= 0)
+                {
+                    SoundSet.OutputSound(MonsterSound.SoundType.Die);
+                    StartCoroutine(Die());
+                }
+                else
+                {
+                    SoundSet.OutputSound(MonsterSound.SoundType.Defence);
+                }
                 return false;
             }
             else
             {
                 Debug.Log($"몬스터 {gameObject.name}({gameObject.GetInstanceID()}) {damage}데미지 받음.");
-                _currentHP -= damage;
-                if (_currentHP <= 0)
+                CurrentHP -= damage;
+                if (CurrentHP <= 0)
                 {
-                    Die();
+                    SoundSet.OutputSound(MonsterSound.SoundType.Die);
+                    // 지나가는 몬스터일 경우 플레이어 검 내구도 회복
+                    if (MonsterType == MonsterType.Passage)
+                    {
+                        float DurabilityRecover = Player.CurrentSword.AttackCost + Player.CurrentSword.MaxDurability * 0.01f;
+                        Player.CurrentSword.IncreaseDurability(DurabilityRecover);
+                    }
+                    
+                    StartCoroutine(Die());
                 }
                 else
                 {
-                    ChangeDefenceDirection();   
+                    SoundSet.OutputSound(MonsterSound.SoundType.Damage);
+                    if (CurrentAction.GetStatus() != MonsterStatus.Skill &&
+                        CharacterEffect.CurrentEffect != Effect.Stun)
+                    {
+                        Debug.Log($"방어방향 변경 {CurrentAction.GetStatus()}");
+                        DefenceDirection = ChangeDefendDirection(this);   
+                    }
+                    objectShake.ShakeOnDamage(direction);
                 }
                 return true;
             }
+        }
+
+        /// <summary>
+        /// 몬스터 이미지 및 도구 이미지를 설정.
+        /// </summary>
+        private void SetImage(JsonMonster monsterJsonData)
+        {
+            // 몬스터 이미지 및 도구 이미지 설정
+            var spritePrefab = Resources.Load<GameObject>(monsterJsonData.ImagePath);
+            monsterSprite = Instantiate(spritePrefab, this.transform);
+            monsterSprite.name = spritePrefab.name;
+            MonsterStat.ImageName = spritePrefab.name;
+            
+            Animator = monsterSprite.GetComponent<Animator>();
+            var toolSprite = Resources.Load<Sprite>(monsterJsonData.ToolPath);
+            var monsterModel = monsterSprite.GetComponent<CharacterModel>();
+            var monsterToolObject = monsterModel.toolObject; 
+            ToolRenderer = monsterToolObject.GetComponent<SpriteRenderer>(); 
+            if (toolSprite == null)
+            {
+                monsterToolObject.SetActive(false);
+            }
+            else
+            {
+                monsterToolObject.SetActive(true);
+                ToolRenderer.sprite = toolSprite;
+            }
+
+            objectShake = monsterSprite.AddComponent<ObjectShake>();
+            objectShake.shakeAngle = 45;
+            objectShake.shakeDegree = 0.25f;
+            objectShake.shakeElastic = 0.6f;
+            objectShake.ShakeTime = 0.1f;
+            objectShake.shakeDirection = 1;
+        }
+
+        /// <summary>
+        /// 몬스터에게 스킬 컴포넌트를 추가한다.
+        /// </summary>
+        private void SetSkill(JsonMonster monsterJsonData)
+        {
+            foreach (var skillName in monsterJsonData.Skills)
+            {
+                if (skillName == null)
+                {
+                    break;
+                }
+                else
+                {
+                    var skillClassType = Type.GetType($"DefaultNamespace.{skillName}");
+                    var newSkill = this.gameObject.AddComponent(skillClassType) as MonsterSkill;
+                    if (newSkill != null)
+                    {
+                        newSkill.Initialize(skillName);    
+                    }
+                    else
+                    {
+                        Debug.LogWarning(
+                            $"{gameObject.GetInstanceID()}에게 {skillName}이 추가되지 않았습니다.\nskillClassType : {skillClassType}\nnewSkill : {newSkill}");
+                    }
+                }
+            }
+        }
+
+        private void InitializeDefence(JsonMonster monsterJsonData)
+        {
+            ChangeDefendDirection =
+                DefenceVariety.SetDefenceVariety(monsterJsonData.DefenceType) as ChangeDefendDirection;
+            DefenceDirection = DefenceVariety.RandomDirection(this);
         }
         
         /// <summary>
@@ -159,9 +281,7 @@ namespace DefaultNamespace
             {
                 CurrentAction.StopAction();
                 CurrentAction = newAction;
-                #if UNITY_EDITOR
-                currentStatus = CurrentAction.GetStatus();
-                #endif
+                MonsterStat.CurrentStatus = CurrentAction.GetStatus();
                 CurrentAction.StartAction();
             }
         }
@@ -180,16 +300,15 @@ namespace DefaultNamespace
             {
                 CurrentAction = _actions[MonsterStatus.Idle];    
             }
-            #if UNITY_EDITOR
-            currentStatus = CurrentAction.GetStatus();
-            #endif
+
+            MonsterStat.CurrentStatus = CurrentAction.GetStatus();
             CurrentAction.StartAction();
         }
 
         public bool IsSkillActiveCondition()
         {
             // 추후 플레이어 있을 때만 스킬 사용하게 한다면 조건 추가 바람.
-            if (CurrentAction.GetStatus() == MonsterStatus.Idle &&
+            if ((CurrentAction.GetStatus() == MonsterStatus.Idle || CurrentAction.GetStatus() == MonsterStatus.Move) &&
                 SkillStandbyList.Count > 0)
             {
                 return true;
@@ -200,7 +319,10 @@ namespace DefaultNamespace
             }
         }
 
-        private void Die()
+        /// <summary>
+        /// 몬스터 체력이 0 이하일 때 호출.
+        /// </summary>
+        public IEnumerator Die()
         {
             foreach (var action in _actions)
             {
@@ -219,13 +341,23 @@ namespace DefaultNamespace
             Skills = null;
             
             SkillStandbyList = new List<MonsterSkill>();
+            
+            playerReward.RaiseReward(new Reward(5, (string)null));
 
+            // MonsterApproach.Instance.RemoveApproach(this.gameObject);
             GetComponent<BoxCollider2D>().enabled = false;
-            MonsterApproach.Instance.UpdateApproachStatus(this.gameObject);
-            Destroy(transform.Find(_monsterSprite.name).gameObject);
+            
+            Animator.SetTrigger("Die");
+            yield return new WaitForSeconds(2);
+            Destroy(monsterSprite);
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// 몬스터가 매개변수로 받은 방향으로 스킬을 쓰려 하는지를 반환함.
+        /// </summary>
+        /// <param name="direction">스킬 발동을 확인할 방향</param>
+        /// <returns></returns>
         public bool IsCastSkill(AttackDirection direction)
         {
             if (CurrentAction.GetStatus() == MonsterStatus.Skill)
@@ -241,18 +373,93 @@ namespace DefaultNamespace
             return false;
         }
 
-        public void ChangeDefenceDirection()
+
+        public void ApplyEffect(Effect effect)
         {
-            int directionNum = Enum.GetValues(typeof(AttackDirection)).Length;
-            int defenceDirection = UnityEngine.Random.Range(1, directionNum);
-            ChangeDefenceDirection((AttackDirection) defenceDirection);
+            switch (effect)
+            {
+                case Effect.Stun:
+                    ChangeStatus(_actions[MonsterStatus.None]);
+                    DefenceVariety.UpdateDefenceInformation(this, AttackDirection.None);
+                    Animator.speed = 0;
+                    break;
+            }
         }
 
-        public void ChangeDefenceDirection(AttackDirection direction)
+        public void DisapplyEffect(Effect effect)
         {
-            DefenceDirection = direction;
-            transform.Find("Canvas").GetComponent<MonsterDebugUI>().DefenceDirectionText.text = $"Def:{DefenceDirection.ToString()}";
-            // 애니메이션 변경
+            switch (effect)
+            {
+                case Effect.Stun:
+                    StopCurrentStatus();
+                    ChangeDefendDirection(this);
+                    Animator.speed = 1;
+                    break;
+            }
         }
+
+        public bool IsAbleSkillUsage(MonsterSkill skill)
+        {
+            var isAble = false;
+            switch (skill.ActiveType)
+            {
+                case MonsterSkill.SkillActiveType.Prompt:
+                    isAble = true;
+                    break;
+                case MonsterSkill.SkillActiveType.LongDist:
+                    if (isCollided == true)
+                        isAble = true;
+                    break;
+                case MonsterSkill.SkillActiveType.ShortDist:
+                    if (MonsterApproach.Instance.IsFirstApproached(this.gameObject) == true)
+                        isAble = true;
+                    break;
+                case MonsterSkill.SkillActiveType.NotCollide:
+                    if (isCollided == false)
+                        isAble = true;
+                    break;
+            }
+
+            return isAble;
+            // if ((skill.ActiveType == MonsterSkill.SkillActiveType.ShortDist && 
+            //      MonsterApproach.Instance.IsFirstApproached(this.gameObject) == true))
+            // {
+            //     return true;
+            // }
+            // else if(skill.ActiveType == MonsterSkill.SkillActiveType.LongDist)
+            // {
+            //     return true;
+            // }
+            // else if (skill.ActiveType == MonsterSkill.SkillActiveType.NotCollide)
+            // {
+            //     if (isCollided == false)
+            //     {
+            //         return true;
+            //     }
+            //     Debug.Log($"조건 확인 : {isCollided}");
+            // }
+            // else if (skill.ActiveType == MonsterSkill.SkillActiveType.Prompt)
+            // {
+            //     return true;
+            // }
+            //
+            // return false;
+        }
+    }
+
+    public class MonsterStat
+    {
+        public string Name { get; set; }
+        public string ImageName { get; set; }
+        public float MaxHP { get; set; }
+        public float CurrentHP { get; set; }
+        public MonsterStatus CurrentStatus { get; set; }
+        public AttackDirection CurrentSkillDirection { get; set; }
+        public AttackDirection CurrentDefenceDirection { get; set; }
+        public bool IsPush { get; set; }
+        public bool IsDefend { get; set; }
+        public bool IsCollide { get; set; }
+        public AttackDirection DamagedDirection { get; set; } = AttackDirection.None;
+        public string CurrentSkillName { get; set; }
     }
 }

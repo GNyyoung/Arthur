@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -39,12 +40,15 @@ namespace DefaultNamespace
             }
         }
         private Player _player;
-        public GameObject[] attackButton;
+        public GameObject[] attackButtons;
         public GameObject[] drawSkillCooldown;
         public GameObject activeSkillButton;
+        public GameObject drawButton;
+        public DurabilityRemainDisplay durabilityRemainDisplay;
     
         private void Awake()
         {
+            UINavigation.baseTransform = gameObject.transform;
             Instance.enabled = true;
             InstanceProvider.ReceiverList.Add(this);
         }
@@ -81,6 +85,21 @@ namespace DefaultNamespace
                 _player = obj as Player;
             }
         }
-    }
 
+        public void OpenOption()
+        {
+            UINavigation.Push("BattleOption");
+        }
+
+        public void BlockAllButtons()
+        {
+            foreach (var attackButton in attackButtons)
+            {
+                attackButton.GetComponent<Button>().interactable = false;
+            }
+
+            activeSkillButton.GetComponent<Button>().interactable = false;
+            drawButton.GetComponent<Button>().interactable = false;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -9,6 +9,7 @@ namespace DefaultNamespace
         [SerializeField]
         private bool isWindow;
 
+        // 화면에 표시할 위치 조절용으로 사용
         public Vector2 position;
         private void Awake()
         {
@@ -16,25 +17,32 @@ namespace DefaultNamespace
             _panelUI = GetComponent<IPanelUI>();
         }
 
-        private void Start()
+        private void Start()    
         {
             gameObject.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            UINavigation.RemoveView(this);
         }
 
         public void Show()
         {
             this.gameObject.SetActive(true);
-            _panelUI.UpdateData();
+            _panelUI.ShowPanelData();
             
             if (isWindow == false)
-                {UINavigation.PeekStack()?.Hide();   
+            {
+                UINavigation.PeekStack()?.Hide();   
             }
-            
-            var resolution = new Resolution();
-            var rect = GetComponent<RectTransform>().rect;
-            this.transform.position = new Vector3(
-                position.x + ((rect.width - resolution.width) / 2.0f),
-                position.y + ((rect.height - resolution.height) / 2.0f));
+
+            var resolution = Screen.currentResolution;
+            Debug.Log(resolution);
+            // this.transform.position = new Vector3(
+            // position.x + (resolution.width / 2.0f),
+            // position.y + (resolution.height / 2.0f));
+            this.transform.position = UINavigation.baseTransform.position;
         }
 
         public void Hide()

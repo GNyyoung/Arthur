@@ -7,6 +7,7 @@ namespace DefaultNamespace
     public abstract class PlayerSkillCast : PlayerAction
     {
         public ICooldownObserver CooldownDisplayObserver { get; private set; }
+        public AnimationClip previousSkillAnim;
         
         public PlayerSkill Skill { get; set; }
 

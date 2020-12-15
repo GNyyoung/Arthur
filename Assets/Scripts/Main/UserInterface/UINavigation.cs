@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -21,10 +21,13 @@ namespace DefaultNamespace
             }
         }
 
+        public static Transform baseTransform;
+
         public static UIView Push(UIView view)
         {
             if (HistoryStack.Contains(view) == true)
             {
+                Debug.Log("확인");
                 PopTo(view);
             }
             else
@@ -38,10 +41,17 @@ namespace DefaultNamespace
 
         public static UIView Pop()
         {
-            var view = HistoryStack.Pop();
-            view.Hide();
+            if (HistoryStack.Count > 0)
+            {
+                var view = HistoryStack.Pop();
+                view.Hide();
 
-            return view;
+                return view;    
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static UIView PopTo(string viewName)
@@ -73,10 +83,19 @@ namespace DefaultNamespace
             return previousView;
         }
 
+        public static void PopToRoot()
+        {
+            HistoryStack.Clear();
+        }
+
         public static void AddView(UIView view)
         {
             Debug.Log(view.gameObject.name);
-            UIViews.Add(view.gameObject.name, view);
+            // 각 씬의 패널 이름이 중복되지 않도록 조심.
+            if (UIViews.ContainsKey(view.gameObject.name) == false)
+            {
+                UIViews.Add(view.gameObject.name, view);   
+            }
         }
 
         public static UIView PeekStack()
@@ -94,6 +113,11 @@ namespace DefaultNamespace
         public static UIView GetView(string viewName)
         {
             return UIViews[viewName];
+        }
+
+        public static void RemoveView(UIView view)
+        {
+            UIViews.Remove(view.name);
         }
     }
 }

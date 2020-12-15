@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Main;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -36,6 +39,13 @@ namespace DefaultNamespace
         }
 
         GameObject InventoryPanel;
+        public Text goldText;
+        public StageMessage stageMessage;
+
+        private void Awake()
+        {
+            UINavigation.baseTransform = gameObject.transform;
+        }
 
         public void SetInstance(object obj)
         {
@@ -45,21 +55,25 @@ namespace DefaultNamespace
         public void OpenInventory()
         {
             UINavigation.Push("Inventory");
+            MainSound.Instance.OutputPanelOpenSound();
         }
 
         public void CloseInventory()
         {
             UINavigation.PopTo("Inventory");
+            MainSound.Instance.OutputPanelCloseSound();
         }
 
         public void OpenSelectStage()
         {
             UINavigation.Push("SelectStage");
+            MainSound.Instance.OutputMapOpen();
         }
 
         public void CloseSelectStage()
         {
             UINavigation.PopTo("SelectStage");
+            MainSound.Instance.OutputPanelCloseSound();
         }
     }
 }

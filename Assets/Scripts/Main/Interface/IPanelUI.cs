@@ -1,10 +1,13 @@
 ﻿namespace DefaultNamespace
 {
     /// <summary>
-    /// 패널 내 데이터가 변경돼야 하는 모든 인스턴스가 저장되는 인터페이스
+    /// 데이터가 변경돼야 하는 패널에 사용합니다.
     /// </summary>
     public interface IPanelUI
     {
-        void UpdateData();
+        /// <summary>
+        /// 패널에 표시되는 모든 데이터를 업데이트함.
+        /// </summary>
+        void ShowPanelData();
     }
 }

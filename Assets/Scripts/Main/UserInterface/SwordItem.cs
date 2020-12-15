@@ -8,6 +8,7 @@ namespace DefaultNamespace
     {
         public SwordInfo SwordInfo { get; set; }
         public int ItemIndex { get; set; }
+        public Image itemImage;
 
         public void SetData(SwordInfo swordInfo, int itemIndex)
         {

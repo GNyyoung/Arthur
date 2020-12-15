@@ -9,7 +9,6 @@ namespace DefaultNamespace
     {
         public float ActiveProgress { get; protected set; }
         public MonsterSkill Skill { get; set; }
-        public ParticleSystem effectObject;
 
         public override void StartAction()
         {
@@ -59,7 +58,16 @@ namespace DefaultNamespace
 
         public void AttackPlayer(int damage, AttackDirection direction)
         {
-            Monster.Player.TakeDamage(Monster, damage, direction);
+            if (Monster.Player.TakeDamage(Monster, damage, direction) == true)
+            {
+                Skill.UseHitEffect();
+            }
+        }
+
+        public void AddCharacterEffect(CharacterEffect target, Effect effect, float duration, float bonusRate = 0)
+        {
+            Debug.Log($"{target.gameObject.name}에게 {effect.ToString()} 부여");
+            target.AddEffect(effect, duration, bonusRate);
         }
     }
 }

@@ -1,57 +1,45 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class MultiHit : MonsterSkill
     {
+        private const int ATTACK_COUNT = 3;
+
         protected override IEnumerator Skill()
         {
             var waitForFixedUpdate = new WaitForFixedUpdate();
 
-            for (int i = 0; i < 4; i++)
+            var skillDirectionList = new List<AttackDirection>();
+            for (int i = 0; i < ATTACK_COUNT; i++)
             {
-                float time = 0;
-                
-                ShowDirectionEffect(AttackDirection.Slash);
-                while (time < 0.33f)
-                {
-                    time += Time.fixedDeltaTime;
-                    yield return waitForFixedUpdate;
-                }
+                skillDirectionList.Add(AttackDirection.Slash);
             }
             
-            for (int i = 0; i < 4; i++)
-            {
-                ActiveProgress = 0;
-                while (ActiveProgress < PreDelay)
-                {
-                    ActiveProgress += Time.fixedDeltaTime;
-                    yield return waitForFixedUpdate;
-                }
-                
-                SkillCastAction.AttackPlayer(2, AttackDirection.Slash);
-            }
-            
-            while (ActiveProgress < PreDelay + PostDelay)
-            {
-                ActiveProgress += Time.fixedDeltaTime;
-                yield return new WaitForFixedUpdate();
-            }
+            yield return StartCoroutine(ShowSkillDirectionAlarm(skillDirectionList.ToArray()));
+
+            PlaySkillAnimation();
+            Monster.DefenceDirection = DefenceVariety.NotDefence(Monster);
+            yield return new WaitForSeconds(1.0f);
+
+            int damage = Mathf.FloorToInt(2 * Monster.DamageMultiple);
+            yield return StartCoroutine(AttackPlayer(skillDirectionList.ToArray(), damage));
+
+            yield return StartCoroutine(WaitForPostDelay());
             
             EndSkill();
         }
 
         protected override bool IsPauseCooldown()
         {
-            if (Monster.CurrentAction?.GetStatus() == MonsterStatus.Idle)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return SkillCooldownCondition.IsPauseCooldownWhenIdle(Monster);
+        }
+
+        protected override void SetSkillAnimation()
+        {
+            skillAnim = Resources.Load<AnimationClip>($"Animations/{Monster.MonsterStat.Name}/MultiHit");
         }
     }
 }

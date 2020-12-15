@@ -27,7 +27,7 @@ namespace DefaultNamespace
             {
                 foreach (var filter in cooldownFilter)
                 {
-                    filter.fillAmount = sword.CooldownRest / sword.CooldownTime;
+                    filter.fillAmount = sword.CooldownRest / sword.GetFinalAttackCooldown();
                 }
 
                 yield return null;

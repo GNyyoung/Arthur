@@ -7,21 +7,20 @@ namespace DefaultNamespace
     public class PlayerIdle : PlayerAction
     {
         private GameObject collidedMonster;
-        private Coroutine _currentCoroutine;
+        private Coroutine _idleCoroutine;
         
         public override void StartAction()
         {
             base.StartAction();
-            _currentCoroutine = StartCoroutine(CheckIdleCondition());
+            if (_idleCoroutine == null)
+            {
+                _idleCoroutine = StartCoroutine(CheckIdleCondition());   
+            }
         }
 
         public override void StopAction()
         {
             base.StopAction();
-            if (_currentCoroutine != null)
-            {
-                StopCoroutine(_currentCoroutine);   
-            }
         }
 
         public override PlayerStatus GetStatus()
@@ -32,12 +31,22 @@ namespace DefaultNamespace
         private IEnumerator CheckIdleCondition()
         {
             var waitForFixedUpdate = new WaitForFixedUpdate();
-            while(MonsterApproach.Instance.IsExistCollide() == true)
+            Debug.Log($"몬스터 충돌 : {MonsterApproach.Instance.IsExistCollide()}");
+            while(MonsterApproach.Instance.IsExistCollide() == true ||
+                  Player.CurrentAction.GetStatus() != PlayerStatus.Idle)
             {
+                // if (MonsterApproach.Instance.IsPush == true)
+                // {
+                //     transform.position += Vector3.left * (Player.SpeedController.GetRetreatSpeed() * Time.fixedDeltaTime);   
+                // }
                 yield return waitForFixedUpdate;
             }
             
-            Player.StopCurrentStatus();
+            _idleCoroutine = null;
+            if (Player.CurrentAction.GetStatus() == PlayerStatus.Idle)
+            {
+                Player.StopCurrentStatus();   
+            }
         }
     }
 }

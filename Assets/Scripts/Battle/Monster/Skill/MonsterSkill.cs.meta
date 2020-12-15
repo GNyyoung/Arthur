@@ -1,3 +1,16 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 43b4e29f5b0b4c269b84078f0efeec36
-timeCreated: 1600523201
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - alarmImage_Slash: {fileID: 21300000, guid: e4bc07745fd767f43967966b6aba5d30, type: 3}
+  - alarmImage_UpperSlash: {fileID: 21300000, guid: 1c97d3bdc18fa974ca2f7d3d91d6377c,
+      type: 3}
+  - alarmImage_Stab: {fileID: 21300000, guid: 8fbe3b8cefdd8154e9945a4bf7ab2141, type: 3}
+  - alarmImage_Off: {fileID: 21300000, guid: a6f5c697349e16b48a10572c4a9c237a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

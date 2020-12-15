@@ -6,7 +6,7 @@ namespace DefaultNamespace
 {
     public class TestDrawSkill2 : PlayerSkill
     {
-        private void Awake()
+        protected override void SetSkillAnimation()
         {
             Cooldown = 5f;
         }
@@ -19,14 +19,19 @@ namespace DefaultNamespace
                 SkillCoroutine = StartCoroutine(DrawSkillName());
             }
         }
-        
+
+        public override IEnumerator Skill()
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerator DrawSkillName()
         {
             var waitForFixedUpdate = new WaitForFixedUpdate();
             
             Debug.Log("발도 스킬 사용");
             
-            SkillCastAction.EndSkill();
+            skillCastAction.EndSkill();
             
             yield return waitForFixedUpdate;
         }

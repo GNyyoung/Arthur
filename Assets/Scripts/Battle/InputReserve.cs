@@ -27,6 +27,7 @@ namespace DefaultNamespace
             InputActionType = type;
             if (_currentCoroutine == null)
             {
+                Debug.Log("키 저장");
                 _currentCoroutine = StartCoroutine(WaitInputProcess());
             }
         }

@@ -6,18 +6,18 @@ namespace DefaultNamespace
 {
     public class MonsterIdle : MonsterAction
     {
+        private const float IDLE_CHANGE_DELAY = 0.1f;
         private bool isActive = false;
-        private Coroutine _pushCoroutine;
+        private Coroutine _idleCoroutine;
         
         public override void StartAction()
         {
             Debug.Log($"{gameObject.GetInstanceID()}몬스터 대기 시작");
             this.enabled = true;
             isActive = true;
-            StartCoroutine(CheckIdleCondition());
-            if (_pushCoroutine == null)
+            if (_idleCoroutine == null)
             {
-                _pushCoroutine = StartCoroutine(PushPlayer());    
+                _idleCoroutine = StartCoroutine(CheckIdleCondition());    
             }
         }
 
@@ -29,10 +29,9 @@ namespace DefaultNamespace
 
         public override void TerminateAction()
         {
-            if (_pushCoroutine != null)
+            if (_idleCoroutine != null)
             {
-                StopCoroutine(_pushCoroutine);
-                _pushCoroutine = null;    
+                _idleCoroutine = null;
             }
             isActive = false;
             this.enabled = false;
@@ -46,30 +45,27 @@ namespace DefaultNamespace
         private IEnumerator CheckIdleCondition()
         {
             var waitForFixedUpdate = new WaitForFixedUpdate();
-            while (isActive)
-            {
-                if (MonsterApproach.Instance.IsExistCollide() == false)
-                {
-                    Monster.StopCurrentStatus();
-                    break;
-                }
-
-                yield return waitForFixedUpdate;
-            }
-        }
-        
-        private IEnumerator PushPlayer()
-        {
-            var waitForFixedUpdate = new WaitForFixedUpdate();
             
-            while (MonsterApproach.Instance.IsExistCollide() == true)
+            while (Monster.isCollided)
             {
-                transform.position +=
-                    Vector3.left * (Player.SpeedController.GetRetreatSpeed() * Time.fixedDeltaTime);
+                if (MonsterApproach.Instance.IsPush == true)
+                {
+                    transform.position += Vector3.left * (Player.SpeedController.GetRetreatSpeed() * Time.fixedDeltaTime);
+                }
                 yield return waitForFixedUpdate;
             }
+            
+            Debug.Log("몬스터 대기 중지");
+            
+            // yield return new WaitUntil(() => Monster.CurrentAction.GetStatus() == MonsterStatus.Idle);
+            // _idleCoroutine = null;
+            // Monster.StopCurrentStatus();
 
-            _pushCoroutine = null;
+            _idleCoroutine = null;
+            if (Monster.CurrentAction.GetStatus() == MonsterStatus.Idle)
+            {
+                Monster.StopCurrentStatus();
+            }
         }
     }
 }

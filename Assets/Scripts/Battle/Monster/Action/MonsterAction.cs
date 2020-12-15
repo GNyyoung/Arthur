@@ -14,25 +14,21 @@ namespace DefaultNamespace
         {
             Monster = GetComponent<Monster>();
         }
-
-        protected void Start()
-        {
-            
-        }
         
-        public RaycastHit2D GetRaycastHitPlayer(float range)
+        public GameObject GetRaycastHitPlayer(float range)
         {
-            var monsterSprite = Monster.GetComponent<SpriteRenderer>().sprite;
+            // var monsterSprite = Monster.GetComponent<SpriteRenderer>().sprite;
             var monsterCollider = Monster.GetComponent<BoxCollider2D>();
             int layerMask = 1 << LayerMask.NameToLayer("Player");
+            GameObject hitObject = null;
 
-            var rayPosition =
-                Monster.transform.position - new Vector3(Monster.GetComponent<SpriteRenderer>().size.x / 2 + 0.1f,
-                    (monsterSprite.rect.height / monsterSprite.pixelsPerUnit / 2));
             var hit = Physics2D.Raycast
-                (rayPosition, Vector2.left, monsterCollider.size.x / 2, layerMask);
-            Debug.DrawRay(rayPosition, Vector3.left * 0.1f, Color.red);
-            return hit;
+                (transform.position, Vector2.left, (monsterCollider.size.x / 2) + range, layerMask);
+            if (hit.collider != null)
+            {
+                hitObject = hit.transform.parent.gameObject;
+            }
+            return hitObject;
         }
 
         public abstract void StartAction();

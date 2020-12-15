@@ -30,11 +30,11 @@ namespace DefaultNamespace
 
         private Monster[] GetDefensibleMonster(AttackDirection direction)
         {
-            var hits = GetRaycastHitMonsters(Player.CurrentSword.Length);
+            var hitMonsters = GetRaycastHitMonsters(Player.CurrentSword.Length);
             var defensibleMonster = new List<Monster>();
-            foreach (var hit in hits)
+            foreach (var hit in hitMonsters)
             {
-                var monster = hit.collider.GetComponent<Monster>();
+                var monster = hit.GetComponent<Monster>();
                 if (monster.IsCastSkill(direction) == true)
                 {
                     defensibleMonster.Add(monster);
@@ -47,6 +47,7 @@ namespace DefaultNamespace
         public void SucceedDefence()
         {
             Debug.Log("방어 성공");
+            Player.Animator.SetTrigger("DefendFinish");
             Player.StopCurrentStatus();
         }
     }

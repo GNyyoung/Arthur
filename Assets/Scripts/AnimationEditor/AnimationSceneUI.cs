@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class AnimationSceneUI : MonoBehaviour
 {
     [SerializeField] 
-    private GameObject animationContent;
+    private GameObject animationContent = null;
     [SerializeField]
-    private GameObject characterPanel;
+    private GameObject characterPanel = null;
     [SerializeField]
-    private GameObject animationButtonPrefab;
+    private GameObject animationButtonPrefab = null;
     [SerializeField]
-    private GameObject characterObjectFolder;
+    private GameObject characterObjectFolder = null;
     private Animator _characterAnimator;
     
     // Start is called before the first frame update
@@ -64,21 +64,37 @@ public class AnimationSceneUI : MonoBehaviour
     private void UpdateAnimationButton()
     {
         var animatorParameters = _characterAnimator.parameters;
-        for (int i = 0; i < animatorParameters.Length; i++)
+
+        var animationClips = _characterAnimator.runtimeAnimatorController.animationClips;
+        for (int i = 0; i < animationClips.Length; i++)
         {
             int index = i;
             var animationButtonObject = GetAnimationButtonObject(i);
             var clickedEvent = new Button.ButtonClickedEvent();
-            clickedEvent.AddListener(() => _characterAnimator.SetTrigger(animatorParameters[index].name));
+            clickedEvent.AddListener(() => _characterAnimator.Play(animationClips[index].name));
             animationButtonObject.GetComponent<Button>().onClick = clickedEvent;
-            animationButtonObject.transform.GetChild(0).GetComponent<Text>().text = animatorParameters[index].name;
+            animationButtonObject.transform.GetChild(0).GetComponent<Text>().text = animationClips[index].name;
             animationContent.transform.GetChild(i).gameObject.SetActive(true);
         }
-
-        for (int i = animatorParameters.Length; i < animationContent.transform.childCount; i++)
+        for (int i = animationClips.Length; i < animationContent.transform.childCount; i++)
         {
             animationContent.transform.GetChild(i).gameObject.SetActive(false);
         }
+        // for (int i = 0; i < animatorParameters.Length; i++)
+        // {
+        //     int index = i;
+        //     var animationButtonObject = GetAnimationButtonObject(i);
+        //     var clickedEvent = new Button.ButtonClickedEvent();
+        //     clickedEvent.AddListener(() => _characterAnimator.SetTrigger(animatorParameters[index].name));
+        //     animationButtonObject.GetComponent<Button>().onClick = clickedEvent;
+        //     animationButtonObject.transform.GetChild(0).GetComponent<Text>().text = animatorParameters[index].name;
+        //     animationContent.transform.GetChild(i).gameObject.SetActive(true);
+        // }
+
+        // for (int i = animatorParameters.Length; i < animationContent.transform.childCount; i++)
+        // {
+        //     animationContent.transform.GetChild(i).gameObject.SetActive(false);
+        // }
     }
 
     private GameObject GetAnimationButtonObject(int index)

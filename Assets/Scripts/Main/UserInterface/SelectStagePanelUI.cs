@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
-    public class SelectStagePanelUI : MonoBehaviour, IPanelUI, IBattleInfoProvider
+    public class SelectStagePanelUI : MonoBehaviour, IPanelUI, IInfoProvider
     {
         private SelectStagePanelUI(){}
         private static SelectStagePanelUI _instance;
@@ -37,29 +38,43 @@ namespace DefaultNamespace
             }
         }
 
-        private string _selectedStageName; 
+        private StageLoadData _stageLoadData;
 
         private void Awake()
         {
-            MainSceneManager.Instance.BattleInfoProviderList.Add(this);
+            AddProvider();
         }
 
-        public void UpdateData()
+        public void ShowPanelData()
         {
             // 갱신할 내용들
         }
         
-        public void StartStage(string stageName)
+        public void StartStage(StageLoadData stageLoadData)
         {
-            _selectedStageName = stageName;
-            MainSceneManager.Instance.InputBattleInfo();
-            SceneManager.LoadScene("Battle");
+            if (MainSceneManager.Instance.CheckStageStartCondition() == true)
+            {
+                _stageLoadData = stageLoadData;
+                MainSceneManager.Instance.InputBattleInfo();
+                MainSceneManager.Instance.ResetData();
+                SceneManager.LoadScene("Battle");    
+            }
+            else
+            {
+                MainUI.Instance.stageMessage.ShowMessage(StageMessage.StageMessageType.EmptyEquippedSword);
+            }
         }
 
-        public KeyValuePair<string, object> GetBattleInfo()
+        public void AddProvider()
+        {
+            MainSceneManager.Instance.AddBattleInfoProvider(this);
+        }
+
+        public KeyValuePair<string, object>[] GetInfo()
         {
             Debug.Log("스테이지 정보 수집");
-            var info = new KeyValuePair<string, object>("Stage", _selectedStageName);
+            // var info = new KeyValuePair<string, object>("Stage", _selectedStageName);
+            var info = new[]{new KeyValuePair<string, object>("Stage", _stageLoadData)};
             return info;
         }
     }

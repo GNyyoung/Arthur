@@ -1,18 +1,19 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
  using DefaultNamespace.Main;
  using UnityEngine;
-
+   using UnityEngine.SceneManagement;
+  
 namespace DefaultNamespace
 {
     public enum PlayerStatus
     {
         None,
         DrawSkill,
-        SkillActive,
+        ActiveSkill,
         Attack,
         Defend,
         Move,
@@ -27,20 +28,34 @@ namespace DefaultNamespace
         Stab
     }
     
-    public class Player : MonoBehaviour, ICombatant
+    public class Player : MonoBehaviour, IEffectReceiver, IInfoProvider
     {
         private LinkedList<Sword> _equippedSwords = new LinkedList<Sword>();
         private Dictionary<PlayerStatus, IPlayerAction> _actions = new Dictionary<PlayerStatus, IPlayerAction>();
         [SerializeField]
-        private Animator animator;
+        private CharacterEffect characterEffect = null;
+        [SerializeField]
+        private Animator animator = null;
         [SerializeField] 
-        private SpriteRenderer swordRenderer;
+        private SpriteRenderer swordRenderer = null;
+        [SerializeField] 
+        private PlayerSound playerSound = null;
+        [SerializeField] 
+        private ObjectShake objectShake = null;
         
         public IPlayerAction CurrentAction { get; private set; }
         public Sword CurrentSword { get; private set; }
         public static MoveSpeedController SpeedController { get; private set; } = new MoveSpeedController();
         public Animator Animator => animator;
         public InputReserve InputReserve { get; private set; }
+        public PlayerSound SoundSet => playerSound;
+        public CharacterEffect CharacterEffect
+        {
+            get => characterEffect;
+            private set => characterEffect = value;
+        }
+
+        public CharacterCanvas characterCanvas;
 
         #region DEBUG
 
@@ -51,6 +66,9 @@ namespace DefaultNamespace
 
         private void Awake()
         {
+            AddProvider();
+            
+            // 액션 추가
             var playerActions = GetComponents<IPlayerAction>();
             foreach (var action in playerActions)
             {
@@ -60,16 +78,17 @@ namespace DefaultNamespace
             CurrentAction = _actions[PlayerStatus.Move];
             CurrentStatus = CurrentAction.GetStatus();
             
-            // 나중에 GameManager로부터 데이터 받아 검 생성
+            // 무기 추가
             var swordPrefab = Resources.Load<GameObject>("Prefabs/Sword");
             foreach (var swordInfo in InformationReceiver.Instance.InformationDictionary["Sword"] as SwordInfo[])
             {
                 var sword = Instantiate(swordPrefab, this.transform).GetComponent<Sword>();
-                sword.Initialize(swordInfo);
+                sword.Initialize(swordInfo, this);
                 _equippedSwords.AddLast(sword);
             }
 
             InputReserve = GetComponent<InputReserve>();
+            CharacterEffect.effectReceiver = this;
         }
 
         public void Initialize()
@@ -77,12 +96,13 @@ namespace DefaultNamespace
             InstanceProvider.SendInstance(this);
             InitializeAllActions();
             ChangeCurrentSword();
+            characterCanvas.Initialize(this.gameObject, transform.Find("PlayerSprite").gameObject);
             
             // DrawSkill 쿨다운 시작
             LinkedListNode<Sword> currentSwordNode = _equippedSwords.Find(CurrentSword);
             (_actions[PlayerStatus.DrawSkill] as PlayerDrawSkillCast)?.CooldownReserveSword(currentSwordNode);
             // ActiveSkill 쿨다운 시작
-            (_actions[PlayerStatus.SkillActive] as PlayerActiveSkillCast)?.CooldownAllSword(_equippedSwords);
+            (_actions[PlayerStatus.ActiveSkill] as PlayerActiveSkillCast)?.CooldownAllSword(_equippedSwords);
         }
 
         /// <summary>
@@ -107,7 +127,7 @@ namespace DefaultNamespace
         /// </summary>
         public void StopCurrentStatus()
         {
-            Debug.Log("현재 액션 종료");
+            Debug.Log($"현재 액션 종료 : {CurrentAction.GetStatus()}");
             CurrentAction.StopAction();
             if (InputReserve.InputActionType == InputActionType.None)
             {
@@ -119,12 +139,19 @@ namespace DefaultNamespace
                 {
                     CurrentAction = _actions[PlayerStatus.Idle];
                 }
+
+                if (CurrentSword == null && 
+                    _equippedSwords.Count > 0)
+                {
+                    ChangeCurrentSword();
+                }
                 
                 CurrentStatus = CurrentAction.GetStatus();
                 CurrentAction.StartAction();
             }
             else
             {
+                CurrentAction = _actions[PlayerStatus.Idle];
                 DoAction(InputReserve.InputActionType);
             }
         }
@@ -173,24 +200,32 @@ namespace DefaultNamespace
         /// </summary>
         private void ActiveSwordSkill()
         {
-            _actions.TryGetValue(PlayerStatus.SkillActive, out var playerSkill);
+            _actions.TryGetValue(PlayerStatus.ActiveSkill, out var playerSkill);
             var skill = (playerSkill as PlayerActiveSkillCast)?.Skill;
             Debug.Log(skill);
             Debug.Log(skill.IsUsable);
             if (skill != null && skill.IsUsable == true)
             {
                 Debug.Log("스킬");
-                ChangeStatus(_actions[PlayerStatus.SkillActive]);
+                ChangeStatus(_actions[PlayerStatus.ActiveSkill]);
             }
         }
 
         public void RemoveCurrentSword()
         {
             _equippedSwords.Remove(CurrentSword);
+            CurrentSword = null;
+            swordRenderer.sprite = null;
+            
             if (_equippedSwords.Count == 0)
             {
                 Debug.Log("게임오버");
                 // 게임오버 코드 작성
+                StartCoroutine(GameOver());
+            }
+            else
+            {
+                ChangeCurrentSword();
             }
         }
 
@@ -201,10 +236,11 @@ namespace DefaultNamespace
         {
             if (CurrentSword == null)
             {
+                Debug.Log($"무기 수 : {_equippedSwords.Count}");
                 CurrentSword = _equippedSwords.First.Value;
                 if (CurrentSword.ActiveSkill != null)
                 {
-                    var activeSkillCast = _actions[PlayerStatus.SkillActive] as PlayerActiveSkillCast;
+                    var activeSkillCast = _actions[PlayerStatus.ActiveSkill] as PlayerActiveSkillCast;
                     if (activeSkillCast != null)
                     {
                         activeSkillCast.Skill = CurrentSword.ActiveSkill;
@@ -218,6 +254,7 @@ namespace DefaultNamespace
                     if (drawSkillCast != null)
                     {
                         drawSkillCast.Skill = CurrentSword.DrawSkill;
+                        drawSkillCast.UpdateCooldownDisplay(_equippedSwords.Find(CurrentSword));
                     }
                 }
             }
@@ -233,7 +270,7 @@ namespace DefaultNamespace
                     CurrentSword = nextSword.Value;
                     if (CurrentSword.ActiveSkill != null)
                     {
-                        var activeSkillCast = _actions[PlayerStatus.SkillActive] as PlayerActiveSkillCast;
+                        var activeSkillCast = _actions[PlayerStatus.ActiveSkill] as PlayerActiveSkillCast;
                         if (activeSkillCast != null)
                         {
                             activeSkillCast.Skill = CurrentSword.ActiveSkill;
@@ -247,7 +284,8 @@ namespace DefaultNamespace
                         if (drawSkillCast != null)
                         {
                             drawSkillCast.Skill = CurrentSword.DrawSkill;
-                            drawSkillCast.UpdateSkillCooldown(_equippedSwords.Find(CurrentSword));
+                            drawSkillCast.UpdatePreviousSkillCooldown(_equippedSwords.Find(CurrentSword));
+                            drawSkillCast.UpdateCooldownDisplay(_equippedSwords.Find(CurrentSword));
                             ChangeStatus(drawSkillCast);
                         }
                     }
@@ -256,7 +294,8 @@ namespace DefaultNamespace
                         if (drawSkillCast != null)
                         {
                             drawSkillCast.Skill = null;
-                            drawSkillCast.UpdateSkillCooldown(_equippedSwords.Find(CurrentSword));    
+                            drawSkillCast.UpdatePreviousSkillCooldown(_equippedSwords.Find(CurrentSword)); 
+                            drawSkillCast.UpdateCooldownDisplay(_equippedSwords.Find(CurrentSword));
                         }
                         StopCurrentStatus();
                     }
@@ -264,6 +303,7 @@ namespace DefaultNamespace
             }
             
             swordRenderer.sprite = CurrentSword.SwordImage;
+            BattleUI.Instance.durabilityRemainDisplay.ChangeRemain(CurrentSword.Durability, CurrentSword.MaxDurability);
         }
 
         public void InitializeAllActions()
@@ -277,46 +317,76 @@ namespace DefaultNamespace
         /// <summary>
         /// 플레이어가 사용 중인 검에 데미지를 입힌다.
         /// </summary>
-        public bool TakeDamage(ICombatant monster, int damage, AttackDirection direction)
+        public bool TakeDamage(Monster monster, int damage, AttackDirection direction)
         {
-            var playerDefend = CurrentAction as PlayerDefend; 
+            if ((characterEffect.CurrentEffect & Effect.Immortality) != 0)
+            {
+                return false;
+            }
+            
+            if ((characterEffect.CurrentEffect & Effect.Counter) != 0)
+            {
+                Debug.Log("Effect.Counter");
+                characterEffect.RemoveEffect(Effect.Counter);
+                monster.CharacterEffect.AddEffect(Effect.Stun, 1.0f);
+                return false;
+            }
+            
+            var playerDefend = CurrentAction as PlayerDefend;
             if (playerDefend != null &&
                 playerDefend.defendDirection == direction)
             {
+                // 공격 방향에 맞게 방어한 경우.
                 playerDefend.SucceedDefence();
+                playerSound.OutputSound(PlayerSound.SoundType.Defence);
                 return false;
             }
             else
             {
-                CurrentSword.DamageByBadDefend(this, damage);
+                // 몬스터 공격을 방어하지 못한 경우.
+                CurrentSword.DamageByBadDefend(damage);
+                if (CurrentAction.GetStatus() == PlayerStatus.ActiveSkill &&
+                    (CurrentAction as PlayerSkillCast)?.Skill.SkillCoroutine != null)
+                {
+                    StopCurrentStatus();
+                }
+                else if (CurrentAction.GetStatus() == PlayerStatus.Attack)
+                {
+                    StopCurrentStatus();
+                }
+                objectShake.ShakeOnDamage(direction);
+                playerSound.OutputSound(PlayerSound.SoundType.Damage);
                 return true;
-            }
+            } 
         }
 
         public void DoAction(InputActionType type)
         {
             InputReserve.ReserveKey(type);
-            
-            switch (type)
+
+            if (CharacterEffect.CurrentEffect != Effect.Stun)
             {
-                case InputActionType.Slash:
-                    DoSwordAction(AttackDirection.Slash);
-                    break;
-                case InputActionType.UpperSlash:
-                    DoSwordAction(AttackDirection.UpperSlash);
-                    break;
-                case InputActionType.Stab:
-                    DoSwordAction(AttackDirection.Stab);
-                    break;
-                case InputActionType.Skill:
-                    ActiveSwordSkill();
-                    break;
-                case InputActionType.Draw:
-                    ChangeCurrentSword();
-                    break;
-                default:
-                    Debug.LogWarning($"적용되지 않은 InputActionType : {type}");
-                    break;
+                switch (type)
+                {
+                    case InputActionType.Slash:
+                        DoSwordAction(AttackDirection.Slash);
+                        break;
+                    case InputActionType.UpperSlash:
+                        DoSwordAction(AttackDirection.UpperSlash);
+                        break;
+                    case InputActionType.Stab:
+                        DoSwordAction(AttackDirection.Stab);
+                        break;
+                    case InputActionType.Skill:
+                        ActiveSwordSkill();
+                        break;
+                    case InputActionType.Draw:
+                        ChangeCurrentSword();
+                        break;
+                    default:
+                        Debug.LogWarning($"적용되지 않은 InputActionType : {type}");
+                        break;
+                }   
             }
         }
 
@@ -327,6 +397,77 @@ namespace DefaultNamespace
             {
                 playerMove.StartRetreat();
             }
+        }
+
+        // public Vector3 GetEffectivePosition()
+        // {
+        //     return transform.position + (Vector3.right * animator.transform.localPosition.x);
+        // }
+
+        // 임시 코루틴.
+        public IEnumerator GameOver()
+        {
+            Time.timeScale = 0;
+            BattleUI.Instance.BlockAllButtons();
+            BattleSceneManager.Instance.ResetData();
+            BattleSceneManager.Instance.InputInformation();
+            yield return new WaitForSecondsRealtime(1.0f);
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Main");
+        }
+
+        public void ApplyEffect(Effect effect)
+        {
+            switch (effect)
+            {
+                case Effect.Stun:
+                    ChangeStatus(_actions[PlayerStatus.None]);
+                    break;
+                case Effect.Knockback:
+                    (_actions[PlayerStatus.Move] as PlayerMove).isMove = false;
+                    break;
+            }
+        }
+
+        public void DisapplyEffect(Effect effect)
+        {
+            switch (effect)
+            {
+                case Effect.Stun:
+                    StopCurrentStatus();
+                    break;
+                case Effect.Knockback:
+                    (_actions[PlayerStatus.Move] as PlayerMove).isMove = true;
+                    break;
+            }
+        }
+
+        public void AddProvider()
+        {
+            BattleSceneManager.Instance.AddInfoProvider(this);
+        }
+
+        public KeyValuePair<string, object>[] GetInfo()
+        {
+            // bool isClear = true;
+            //
+            // if (GameManager.CurrentMode == GameManager.GameMode.Boss && 
+            //     _equippedSwords.Count == 0)
+            // {
+            //     isClear = false;
+            // }
+            //
+            // return new KeyValuePair<string, object>[]
+            // {
+            //     new KeyValuePair<string, object>("Result", isClear)
+            // };
+            
+            
+            Debug.Log("보상 보내기");
+            return new KeyValuePair<string, object>[]
+            {
+                new KeyValuePair<string, object>("Result", true)
+            };
         }
     }
 }

@@ -11,14 +11,18 @@ namespace DefaultNamespace
         
         public void DisplayCooldown(Sword sword)
         {
-            _currentEnumerator = ActiveCooldown(sword.ActiveSkill);
-            StartCoroutine(_currentEnumerator);
+            if (sword.ActiveSkill != null)
+            {
+                _currentEnumerator = ActiveCooldown(sword.ActiveSkill);
+                StartCoroutine(_currentEnumerator);   
+            }
         }
         
         private IEnumerator ActiveCooldown(PlayerSkill skill)
         {
             var enumerator = _currentEnumerator;
             cooldownFilter.gameObject.SetActive(true);
+            Debug.Log(skill);
             while (skill.IsUsable == false && enumerator.Equals(_currentEnumerator) == true)
             {
                 cooldownFilter.fillAmount = skill.CooldownRest / skill.Cooldown;

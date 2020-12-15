@@ -10,7 +10,7 @@ namespace DefaultNamespace
     {
         private float currentTimeScale = 1;
         [SerializeField] 
-        private Text timeScaleText;
+        private Text timeScaleText = null;
 
         private Coroutine timeCoroutine;
         private IEnumerator testt;
@@ -20,13 +20,13 @@ namespace DefaultNamespace
             if (wheel != 0)
             {
                 currentTimeScale += wheel;
-                if (currentTimeScale <= 0)
+                if (currentTimeScale <= 0.1f)
                 {
-                    currentTimeScale = 0.05f;
+                    currentTimeScale = 0.1f;
                 }
-                else if (currentTimeScale > 1)
+                else if (currentTimeScale > 2)
                 {
-                    currentTimeScale = 1;
+                    currentTimeScale = 2;
                 }
 
                 Time.timeScale = currentTimeScale;
@@ -38,12 +38,8 @@ namespace DefaultNamespace
         private IEnumerator ShowTimeScale()
         {
             var thisCoroutine = testt;
-
-            Debug.Log(thisCoroutine);
             timeScaleText.text = $"TimeScale : {currentTimeScale:F}";
             yield return new WaitForSecondsRealtime(1.0f);
-
-            Debug.Log(thisCoroutine == testt);
             if (testt.Equals(thisCoroutine))
             {
                 timeScaleText.text = null;    

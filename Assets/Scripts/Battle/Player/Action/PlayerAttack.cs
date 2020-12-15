@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,22 @@ namespace DefaultNamespace
     {
         public AttackDirection AttackDirection { get; set; } = AttackDirection.None;
         private Coroutine currentCoroutine;
-            
+
+        private Dictionary<AttackDirection, PlayerSound.SoundType> swingSoundTypeSet =
+            new Dictionary<AttackDirection, PlayerSound.SoundType>();
+
+        public PlayerAttack()
+        {
+            swingSoundTypeSet.Add(AttackDirection.None, PlayerSound.SoundType.None);
+            swingSoundTypeSet.Add(AttackDirection.Slash, PlayerSound.SoundType.Slash);
+            swingSoundTypeSet.Add(AttackDirection.UpperSlash, PlayerSound.SoundType.UpperSlash);
+            swingSoundTypeSet.Add(AttackDirection.Stab, PlayerSound.SoundType.Stab);
+        }
+
         public override void StartAction()
         {
             base.StartAction();
             Player.Animator.SetTrigger(AttackDirection.ToString());
-            Player.Animator.speed = 1.0f / Player.CurrentSword.CooldownTime;
             Debug.Log($"{AttackDirection.ToString()}방향 공격 시작");
             currentCoroutine = StartCoroutine(Attack());
         }
@@ -31,35 +42,45 @@ namespace DefaultNamespace
             return PlayerStatus.Attack;
         }
 
+        /// <summary>
+        /// 애니메이션 도중 데미지를 입힌다.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Attack()
         {
-            //검에서 스탯 가져와서 공격하기
-
             var waitForFixedUpdate = new WaitForFixedUpdate();
             float time = 0;
             bool isDamage = false;
             var sword = Player.CurrentSword; 
             
             Player.CurrentSword.StartCooldown();
-            while (time < sword.CooldownTime)
+            var audioSource = Player.GetComponent<AudioSource>();
+            Player.SoundSet.OutputSound(swingSoundTypeSet[AttackDirection]);
+            
+            Player.Animator.speed = 1.0f / Player.CurrentSword.DamageTime;
+            while (time < sword.AttackCooldown)
             {
-                if (isDamage == false && time >= sword.DamageTime)
+                if (isDamage == false && time >= sword.DamageTime * 0.75f)
                 {
-                    var hits = GetRaycastHitMonsters(sword.Length);
-                    Debug.Log($"공격타겟 수 : {hits.Length}");
-                    for (int i = 0; i < hits.Length; i++)
+                    var hitMonsters = GetRaycastHitMonsters(sword.Length);
+                    Debug.Log($"공격타겟 수 : {hitMonsters.Length}");
+                    float swordDamageRate = 0;
+                    for (int i = 0; i < hitMonsters.Length; i++)
                     {
-                        if (hits[i].collider.GetComponent<ICombatant>()
-                            .TakeDamage(Player, Mathf.FloorToInt(sword.Damage), AttackDirection) == true)
+                        var monster = hitMonsters[i].GetComponent<Monster>();
+                        // 몬스터가 방어한 방향을 공격하면 false 반환
+                        if (monster.TakeDamage(Player, Mathf.FloorToInt(sword.Damage), AttackDirection) == true)
                         {
-                            Player.CurrentSword.DamageByAttack(Player);
+                            swordDamageRate = monster.SwordDamageRate;
                         }
                         else
                         {
-                            Player.CurrentSword.DamageByBadAttack(Player);
+                            swordDamageRate = monster.SwordDamageRate * 2;
                         }
                     }
-                    
+
+                    Player.Animator.speed = 1.0f / (Player.CurrentSword.AttackCooldown - Player.CurrentSword.DamageTime);
+                    Player.CurrentSword.DamageByAttack(Player, swordDamageRate);
                     isDamage = true;
                 }
 
